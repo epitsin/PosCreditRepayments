@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSCreditRepayments.Web", "POSCreditRepayments.Web\POSCreditRepayments.Web.csproj", "{B1DB428E-B14C-4F99-92FE-A21516D9DB9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2FD41A7B-10EA-4539-B8D3-5EB5236572DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{077A1EF8-D9BA-4D60-B156-CBA8B36AB280}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSCreditRepayments.Data", "POSCreditRepayments.Data\POSCreditRepayments.Data.csproj", "{765214FC-2DEA-408C-8569-9798CE00F797}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSCreditRepayments.Models", "POSCreditRepayments.Models\POSCreditRepayments.Models.csproj", "{0C0F970E-347C-48CE-905A-F790ABE5FAA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1DB428E-B14C-4F99-92FE-A21516D9DB9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1DB428E-B14C-4F99-92FE-A21516D9DB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1DB428E-B14C-4F99-92FE-A21516D9DB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1DB428E-B14C-4F99-92FE-A21516D9DB9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{765214FC-2DEA-408C-8569-9798CE00F797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{765214FC-2DEA-408C-8569-9798CE00F797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{765214FC-2DEA-408C-8569-9798CE00F797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{765214FC-2DEA-408C-8569-9798CE00F797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C0F970E-347C-48CE-905A-F790ABE5FAA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C0F970E-347C-48CE-905A-F790ABE5FAA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C0F970E-347C-48CE-905A-F790ABE5FAA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C0F970E-347C-48CE-905A-F790ABE5FAA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1DB428E-B14C-4F99-92FE-A21516D9DB9E} = {2FD41A7B-10EA-4539-B8D3-5EB5236572DA}
+		{765214FC-2DEA-408C-8569-9798CE00F797} = {077A1EF8-D9BA-4D60-B156-CBA8B36AB280}
+		{0C0F970E-347C-48CE-905A-F790ABE5FAA4} = {077A1EF8-D9BA-4D60-B156-CBA8B36AB280}
+	EndGlobalSection
+EndGlobal
