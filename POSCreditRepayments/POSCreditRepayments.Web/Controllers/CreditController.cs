@@ -43,7 +43,18 @@ namespace POSCreditRepayments.Web.Controllers
 
             double monthlyPaymentRounded = Math.Round(monthlyPayment, 2);
 
-            return View(monthlyPaymentRounded);
+            CalculatedCreditViewModel model = new CalculatedCreditViewModel
+            {
+                TotalAmount = totalPriceToPay,
+                Downpayment = viewModel.Downpayment,
+                FinancialInstitutionName = institution.Name,
+                Insurance = viewModel.HasInsurance ? "Included" : "Not included",
+                InterestRate = institution.MonthsOneToThree,
+                Term = viewModel.Term,
+                MonthlyPayment = monthlyPaymentRounded
+            };
+
+            return View(model);
         }
     }
 }

@@ -221,6 +221,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Credits\CalculatedCreditViewModel.cs" />
     <Compile Include="ViewModels\Credits\CreditViewModel.cs" />
     <Compile Include="ViewModels\FinancialInstitutions\FinancialInstitutionViewModel.cs" />
     <Compile Include="ViewModels\Products\AllProductsViewModel.cs" />
