@@ -7,6 +7,8 @@ namespace POSCreditRepayments.Data
     {
         IRepository<User> Users { get; }
 
+        IRepository<Product> Products { get; }
+
         int SaveChanges();
     }
 }

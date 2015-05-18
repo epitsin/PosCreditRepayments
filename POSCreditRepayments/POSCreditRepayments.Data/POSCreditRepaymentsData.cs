@@ -7,9 +7,9 @@ namespace POSCreditRepayments.Data
 {
     public class POSCreditRepaymentsData : IPOSCreditRepaymentsData
     {
-        private IPOSCreditRepaymentsDbContext context;
+        private readonly IPOSCreditRepaymentsDbContext context;
 
-        private IDictionary<Type, object> repositories;
+        private readonly IDictionary<Type, object> repositories;
 
         public POSCreditRepaymentsData(IPOSCreditRepaymentsDbContext context)
         {
@@ -25,13 +25,13 @@ namespace POSCreditRepayments.Data
             }
         }
 
-        //public IRepository<ITSystem> ITSystems
-        //{
-        //    get
-        //    {
-        //        return this.GetRepository<ITSystem>();
-        //    }
-        //}
+        public IRepository<Product> Products
+        {
+            get
+            {
+                return this.GetRepository<Product>();
+            }
+        }
 
         public int SaveChanges()
         {

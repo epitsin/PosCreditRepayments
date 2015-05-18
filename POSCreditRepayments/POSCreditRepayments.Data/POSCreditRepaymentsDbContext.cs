@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using POSCreditRepayments.Models;
-using System.Data.Entity;
 
 namespace POSCreditRepayments.Data
 {
@@ -18,6 +18,8 @@ namespace POSCreditRepayments.Data
                 return this;
             }
         }
+
+        public IDbSet<Product> Products { get; set; }
 
         public new IDbSet<T> Set<T>() where T : class
         {

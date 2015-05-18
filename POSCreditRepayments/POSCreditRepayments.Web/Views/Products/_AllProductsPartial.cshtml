@@ -1,0 +1,13 @@
+﻿﻿@model IEnumerable<POSCreditRepayments.Web.ViewModels.Products.AllProductsViewModel>
+
+@foreach (var product in Model)
+{
+    <div class="col-md-6">
+        <div class="item_description">
+            <img src="@product.ImageUrl" style="width:200px;"/>
+            <h3>
+                <a href="@Url.Action("ProductDetails", "Products", new { id = product.ProductId })">@product.Name</a>
+            </h3>
+        </div>
+    </div>
+}
