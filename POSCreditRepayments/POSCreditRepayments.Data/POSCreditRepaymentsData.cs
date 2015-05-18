@@ -33,6 +33,14 @@ namespace POSCreditRepayments.Data
             }
         }
 
+        public IRepository<FinancialInstitution> FinancialInstitutions
+        {
+            get
+            {
+                return this.GetRepository<FinancialInstitution>();
+            }
+        }
+
         public int SaveChanges()
         {
             return this.context.SaveChanges();

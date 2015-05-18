@@ -1,17 +1,15 @@
 ﻿﻿@model POSCreditRepayments.Web.ViewModels.Products.AllProductsViewModel
 
 <div class="container">
-    <section>
-        <h2 class="text-center">@Model.Name</h2>
-        <div class="col-md-3">
-            <img src="@Model.ImageUrl" style="width: 200px;" />
-        </div>
-        <div class="col-md-6">
-            <p>@Html.Raw(HttpUtility.HtmlDecode(Model.Description))</p>
-            <p><strong>Price: @Model.Price</strong></p>
-        </div>
-        <div class="col-md-3">
-            @Html.ActionLink("Buy it now!", "BuyProduct", "Credit", new { id = Model.ProductId }, new { @class = "btn btn-info" })
-        </div>
-    </section>
+    <h2 class="text-center">@Model.Name</h2>
+    <div class="col-md-3">
+        <img src="@Model.ImageUrl" style="width: 200px;" />
+    </div>
+    <div class="col-md-6">
+        <p>@Html.Raw(HttpUtility.HtmlDecode(Model.Description))</p>
+        <p><strong>Price: @Model.Price</strong></p>
+    </div>
+    <div class="col-md-3">
+        @Html.ActionLink("Buy on credit!", "BuyProduct", "Credit", new { id = Model.ProductId }, new { @class = "btn btn-info" })
+    </div>
 </div>

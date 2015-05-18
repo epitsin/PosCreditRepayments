@@ -1,11 +1,14 @@
-﻿using System.Data.Entity;
+﻿using POSCreditRepayments.Models;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
 namespace POSCreditRepayments.Data
 {
     public interface IPOSCreditRepaymentsDbContext
     {
-        //IDbSet<BusinessProcess> BusinessProcesses { get; set; }
+        IDbSet<FinancialInstitution> FinancialInstitutions { get; set; }
+
+        IDbSet<Product> Products { get; set; }
 
         DbContext DbContext { get; }
 

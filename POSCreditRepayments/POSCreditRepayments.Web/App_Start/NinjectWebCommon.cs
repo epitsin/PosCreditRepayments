@@ -11,6 +11,8 @@ namespace POSCreditRepayments.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using POSCreditRepayments.Data;
+    using POSCreditRepayments.Web.Infrastructure.Caching;
+    using POSCreditRepayments.Web.Infrastructure.Populators;
 
     public static class NinjectWebCommon 
     {
@@ -64,8 +66,8 @@ namespace POSCreditRepayments.Web.App_Start
         {
             kernel.Bind<IPOSCreditRepaymentsDbContext>().To<POSCreditRepaymentsDbContext>();
             kernel.Bind<IPOSCreditRepaymentsData>().To<POSCreditRepaymentsData>();
-
-            //kernel.Bind(typeof(IRepository<>)).To(typeof(EFRepository<>));
+            kernel.Bind<ICacheService>().To<InMemoryCache>();
+            kernel.Bind<IDropDownListPopulator>().To<DropDownListPopulator>();
         }        
     }
 }

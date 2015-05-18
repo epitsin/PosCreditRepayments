@@ -17,9 +17,36 @@ namespace POSCreditRepayments.Data.Migrations
         protected override void Seed(POSCreditRepaymentsDbContext context)
         {
             this.SeedProducts(context);
+            this.SeedFinancialInstitutions(context);
         }
 
-        protected void SeedProducts(POSCreditRepaymentsDbContext context)
+        private void SeedFinancialInstitutions(POSCreditRepaymentsDbContext context)
+        {
+            if (context.FinancialInstitutions.Any())
+            {
+                return;
+            }
+
+            context.FinancialInstitutions.Add(new FinancialInstitution
+            {
+                Name = "FiBank",
+                MonthsOneToThree = 15
+            });
+
+            context.FinancialInstitutions.Add(new FinancialInstitution
+            {
+                Name = "UniCredit",
+                MonthsOneToThree = 26
+            });
+
+            context.FinancialInstitutions.Add(new FinancialInstitution
+            {
+                Name = "Allianz",
+                MonthsOneToThree = 19
+            });
+        }
+
+        private void SeedProducts(POSCreditRepaymentsDbContext context)
         {
             if (context.Products.Any())
             {
@@ -92,6 +119,20 @@ namespace POSCreditRepayments.Data.Migrations
 “»œ √–¿‘»◊Õ¿  ¿–“¿: INTEL HD GRAPHICS 5500",
                 Price = 3099,
                 ImageUrl = "/Content/Images/5.png"
+            });
+
+            context.Products.Add(new Product
+            {
+                Name = "À‡ÔÚÓÔ LENOVO G710A/59412620",
+                Description = @"“»œ: À¿œ“Œœ
+“»œ œ–Œ÷≈—Œ–: INTEL CORE i3-4000M
+◊≈—“Œ“¿ Õ¿ œ–Œ÷≈—Œ–¿: 2.40 GHz
+ ¿œ¿÷»“≈“ RAM: 6 GB
+ ¿œ¿÷»“≈“ HDD: 1000 GB
+“»œ √–¿‘»◊Õ¿  ¿–“¿: NVIDIA GEFORCE 820M
+–¿«Ã≈– Õ¿ ≈ –¿Õ¿ ¬ INCH: 17.3 ",
+                Price = 999,
+                ImageUrl = "/Content/Images/6.png"
             });
 
             context.SaveChanges();
