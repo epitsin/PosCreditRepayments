@@ -1,25 +1,27 @@
 ﻿@model POSCreditRepayments.Web.ViewModels.Credits.CreditViewModel
 
 <div class="row">
-    <div class="col-md-12">
-        <h2 class="text-center">How much will my monthly payments be ?</h2>
-        <section id="userInformation" class="top-bottom-space">
-            @using (Html.BeginForm("Calculate",
+    <div class="box">
+        <div class="col-md-12">
+            <h2 class="text-center">How much will my monthly payments be ?</h2>
+            <section id="userInformation" class="top-bottom-space">
+                @using (Html.BeginForm("Calculate",
                 "Credit",
                 FormMethod.Post,
                 new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
-                @Html.AntiForgeryToken()
+                {
+                    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+                    @Html.AntiForgeryToken()
 
-                @Html.EditorForModel()
+                    @Html.EditorForModel()
 
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
-                        <input type="submit" class="btn send_btn" value="Calculate" />
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                            <input type="submit" class="btn send_btn" value="Calculate" />
+                        </div>
                     </div>
-                </div>
-            }
-        </section>
+                }
+            </section>
+        </div>
     </div>
 </div>
