@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
 using POSCreditRepayments.Data;
 using POSCreditRepayments.Web.ViewModels.Products;
+using PagedList;
 
 namespace POSCreditRepayments.Web.Controllers
 {
@@ -14,15 +15,21 @@ namespace POSCreditRepayments.Web.Controllers
         {
         }
 
-        public ActionResult AllProducts()
+        public ActionResult AllProducts(int? page)
         {
-            var products = this.Data.Products
-                   .All()
-                   .Project()
-                   .To<AllProductsViewModel>()
-                   .ToList();
+            // returns IQueryable<ITSystems> representing an unknown number of products
+            var allProducts = this.Data.Products
+                .All()
+                .Project().To<AllProductsViewModel>()
+                .OrderBy(u => u.Name);
 
-            return this.View(products);
+            // if no page was specified in the querystring, default to the first page (1)
+            var pageNumber = page ?? 1;
+
+            // will only contain PageSize systems max because of the pageSize
+            var onePageOfProducts = allProducts.ToPagedList(pageNumber, 4);
+
+            return this.View(onePageOfProducts);
         }
 
         [HttpGet]
@@ -41,6 +48,17 @@ namespace POSCreditRepayments.Web.Controllers
             }
 
             return this.View(article);
+        }
+
+        [HttpGet]
+        public ActionResult SearchForProduct(string query)
+        {
+            var suggestedUsers = this.Data.Products
+                .All()
+                .Select(u => new { Id = u.ProductId, Name = u.Name, ImageUrl = u.ImageUrl})
+                .ToList();
+
+            return this.Json(suggestedUsers, JsonRequestBehavior.AllowGet);
         }
     }
 }
