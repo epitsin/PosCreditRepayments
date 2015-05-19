@@ -16,7 +16,7 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         [DisplayName("Total amount")]
         public double TotalAmount { get; set; }
 
-        [DisplayName("Interest rate")]
+        [DisplayName("Interest rate (%)")]
         public double InterestRate { get; set; }
 
         [DisplayName("Monthly payment")]
