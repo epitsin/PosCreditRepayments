@@ -30,19 +30,19 @@ namespace POSCreditRepayments.Data.Migrations
             context.FinancialInstitutions.Add(new FinancialInstitution
             {
                 Name = "FiBank",
-                MonthsOneToThree = 15
+                InterestRate = 23
             });
 
             context.FinancialInstitutions.Add(new FinancialInstitution
             {
                 Name = "UniCredit",
-                MonthsOneToThree = 26
+                InterestRate = 26
             });
 
             context.FinancialInstitutions.Add(new FinancialInstitution
             {
                 Name = "Allianz",
-                MonthsOneToThree = 19
+                InterestRate = 28
             });
         }
 

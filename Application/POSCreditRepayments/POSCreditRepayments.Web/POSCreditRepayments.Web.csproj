@@ -213,6 +213,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\Xirr.cs" />
     <Compile Include="Infrastructure\Populators\DropDownListPopulator.cs" />
     <Compile Include="Extentions\EnumExtentions.cs" />
     <Compile Include="Infrastructure\Populators\IDropDownListPopulator.cs" />
@@ -229,7 +230,6 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Credits\CalculatedCreditViewModel.cs" />
     <Compile Include="ViewModels\Credits\CreditViewModel.cs" />
-    <Compile Include="ViewModels\FinancialInstitutions\FinancialInstitutionViewModel.cs" />
     <Compile Include="ViewModels\Products\AllProductsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

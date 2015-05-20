@@ -15,16 +15,13 @@ namespace POSCreditRepayments.Web.Controllers
             this.Data = data;
         }
 
-
-        protected IPOSCreditRepaymentsData Data { get; set; }
-
         protected User CurrentUser
         {
             get
             {
                 if (this.currentUser == null)
                 {
-                    var userId = User.Identity.GetUserId();
+                    var userId = this.User.Identity.GetUserId();
                     var user = this.Data.Users.GetById(userId);
                     this.currentUser = user;
                 }
@@ -36,5 +33,7 @@ namespace POSCreditRepayments.Web.Controllers
                 this.currentUser = value;
             }
         }
+
+        protected IPOSCreditRepaymentsData Data { get; set; }
     }
 }

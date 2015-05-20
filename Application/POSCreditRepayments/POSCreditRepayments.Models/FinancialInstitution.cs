@@ -8,19 +8,7 @@ namespace POSCreditRepayments.Models
 
         public string Name { get; set; }
 
-        public double MonthsOneToThree { get; set; }
-
-        public double MonthsFourToSix { get; set; }
-
-        public double MonthsSevenToNine { get; set; }
-
-        public double MonthsTenToTwelve { get; set; }
-
-        public double MonthsThirteenToEighteen { get; set; }
-
-        public double MonthsNineteenToTwentyFour { get; set; }
-
-        public double MonthsMoreThanTwentyFour { get; set; }
+        public double InterestRate { get; set; }
 
         public FinancialInstitution()
         {
