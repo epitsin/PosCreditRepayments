@@ -4,18 +4,18 @@ namespace POSCreditRepayments.Data.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        IQueryable<T> All();
-
-        T GetById(object id);
-
         void Add(T entity);
 
-        void Update(T entity);
+        IQueryable<T> All();
 
         void Delete(T entity);
 
         void Delete(object id);
 
+        T GetById(object id);
+
         int SaveChanges();
+
+        void Update(T entity);
     }
 }

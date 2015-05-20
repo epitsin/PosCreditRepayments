@@ -19,18 +19,18 @@ namespace POSCreditRepayments.Data
             }
         }
 
-        public IDbSet<Product> Products { get; set; }
-
         public IDbSet<FinancialInstitution> FinancialInstitutions { get; set; }
 
-        public new IDbSet<T> Set<T>() where T : class
-        {
-            return base.Set<T>();
-        }
+        public IDbSet<Product> Products { get; set; }
 
         public static POSCreditRepaymentsDbContext Create()
         {
             return new POSCreditRepaymentsDbContext();
+        }
+
+        public new IDbSet<T> Set<T>() where T : class
+        {
+            return base.Set<T>();
         }
     }
 }

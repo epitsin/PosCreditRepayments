@@ -1,7 +1,7 @@
-﻿using POSCreditRepayments.Data.Repositories;
-using POSCreditRepayments.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using POSCreditRepayments.Data.Repositories;
+using POSCreditRepayments.Models;
 
 namespace POSCreditRepayments.Data
 {
@@ -17,11 +17,11 @@ namespace POSCreditRepayments.Data
             this.repositories = new Dictionary<Type, object>();
         }
 
-        public IRepository<User> Users
+        public IRepository<FinancialInstitution> FinancialInstitutions
         {
             get
             {
-                return this.GetRepository<User>();
+                return this.GetRepository<FinancialInstitution>();
             }
         }
 
@@ -33,11 +33,11 @@ namespace POSCreditRepayments.Data
             }
         }
 
-        public IRepository<FinancialInstitution> FinancialInstitutions
+        public IRepository<User> Users
         {
             get
             {
-                return this.GetRepository<FinancialInstitution>();
+                return this.GetRepository<User>();
             }
         }
 

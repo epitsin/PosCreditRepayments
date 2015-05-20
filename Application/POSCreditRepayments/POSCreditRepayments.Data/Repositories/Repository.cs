@@ -5,46 +5,24 @@ namespace POSCreditRepayments.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private IPOSCreditRepaymentsDbContext context;
-
-        private IDbSet<T> set;
-
         public Repository(IPOSCreditRepaymentsDbContext context)
         {
             this.Context = context;
             this.Set = context.Set<T>();
         }
 
-        protected IPOSCreditRepaymentsDbContext Context
-        {
-            get { return this.context; }
-            set { this.context = value; }
-        }
+        protected IPOSCreditRepaymentsDbContext Context { get; set; }
 
-        protected IDbSet<T> Set
-        {
-            get { return this.set; }
-            set { this.set = value; }
-        }
-
-        public IQueryable<T> All()
-        {
-            return this.Set;
-        }
-
-        public T GetById(object id)
-        {
-            return this.Set.Find(id);
-        }
+        protected IDbSet<T> Set { get; set; }
 
         public void Add(T entity)
         {
             this.ChangeState(entity, EntityState.Added);
         }
 
-        public void Update(T entity)
+        public IQueryable<T> All()
         {
-            this.ChangeState(entity, EntityState.Modified);
+            return this.Set;
         }
 
         public void Delete(T entity)
@@ -62,9 +40,19 @@ namespace POSCreditRepayments.Data.Repositories
             }
         }
 
+        public T GetById(object id)
+        {
+            return this.Set.Find(id);
+        }
+
         public int SaveChanges()
         {
             return this.SaveChanges();
+        }
+
+        public void Update(T entity)
+        {
+            this.ChangeState(entity, EntityState.Modified);
         }
 
         private void ChangeState(T entity, EntityState state)

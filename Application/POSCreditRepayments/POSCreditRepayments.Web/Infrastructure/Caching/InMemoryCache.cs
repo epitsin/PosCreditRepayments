@@ -5,6 +5,11 @@ namespace POSCreditRepayments.Web.Infrastructure.Caching
 {
     public class InMemoryCache : ICacheService
     {
+        public void Clear(string cacheId)
+        {
+            HttpRuntime.Cache.Remove(cacheId);
+        }
+
         public T Get<T>(string cacheID, Func<T> getItemCallback) where T : class
         {
             T item = HttpRuntime.Cache.Get(cacheID) as T;
@@ -14,11 +19,6 @@ namespace POSCreditRepayments.Web.Infrastructure.Caching
                 HttpContext.Current.Cache.Insert(cacheID, item);
             }
             return item;
-        }
-
-        public void Clear(string cacheId)
-        {
-            HttpRuntime.Cache.Remove(cacheId);
         }
     }
 }

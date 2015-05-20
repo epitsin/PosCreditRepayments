@@ -215,7 +215,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\Xirr.cs" />
     <Compile Include="Infrastructure\Populators\DropDownListPopulator.cs" />
-    <Compile Include="Extentions\EnumExtentions.cs" />
+    <Compile Include="Extentions\EnumExtensions.cs" />
     <Compile Include="Infrastructure\Populators\IDropDownListPopulator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

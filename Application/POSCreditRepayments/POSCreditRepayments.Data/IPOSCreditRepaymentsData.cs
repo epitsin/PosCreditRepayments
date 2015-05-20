@@ -5,11 +5,11 @@ namespace POSCreditRepayments.Data
 {
     public interface IPOSCreditRepaymentsData
     {
-        IRepository<User> Users { get; }
+        IRepository<FinancialInstitution> FinancialInstitutions { get; }
 
         IRepository<Product> Products { get; }
 
-        IRepository<FinancialInstitution> FinancialInstitutions { get; }
+        IRepository<User> Users { get; }
 
         int SaveChanges();
     }
