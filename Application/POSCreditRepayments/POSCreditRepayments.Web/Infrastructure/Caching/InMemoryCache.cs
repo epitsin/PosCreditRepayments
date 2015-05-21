@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using System.Web.Caching;
 
 namespace POSCreditRepayments.Web.Infrastructure.Caching
 {
@@ -16,7 +17,7 @@ namespace POSCreditRepayments.Web.Infrastructure.Caching
             if (item == null)
             {
                 item = getItemCallback();
-                HttpContext.Current.Cache.Insert(cacheID, item);
+                HttpContext.Current.Cache.Insert(cacheID, item, null, DateTime.Now.AddMinutes(15), Cache.NoSlidingExpiration);
             }
             return item;
         }

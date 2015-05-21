@@ -1,4 +1,4 @@
-﻿﻿@model POSCreditRepayments.Web.ViewModels.Products.AllProductsViewModel
+﻿﻿@model POSCreditRepayments.Web.ViewModels.Products.ProductDetailsViewModel
 
 <div class="row">
     <div class="box">
@@ -19,7 +19,7 @@
         <br />
         <div class="row">
             <div class="col-lg-11 col-lg-offset-1">
-                @Html.ActionLink("Buy on credit", "BuyProduct", "Credit", new { id = Model.ProductId }, new { @class = "btn btn-lg btn-info" })
+                @Html.ActionLink("Buy on credit", "GetOnCredit", "Credit", new { id = Model.ProductId }, new { @class = "btn btn-lg btn-info" })
             </div>
         </div>
     </div>

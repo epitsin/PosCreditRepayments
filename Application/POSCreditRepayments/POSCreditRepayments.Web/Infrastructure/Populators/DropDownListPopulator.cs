@@ -25,9 +25,10 @@ namespace POSCreditRepayments.Web.Infrastructure.Populators
                 {
                     return this.data.FinancialInstitutions
                                .All()
+                               .Where(c => c.IsApproved)
                                .Select(c => new SelectListItem
                                       {
-                                          Value = c.FinancialInstitutionId.ToString(),
+                                          Value = c.Id.ToString(),
                                           Text = c.Name
                                       })
                                .ToList();

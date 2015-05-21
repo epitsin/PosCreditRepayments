@@ -28,7 +28,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Products", "AllProducts", "Products")</li>
+                    <li>@Html.ActionLink("Products", "AllProducts", "Products")</li>                    
+                    @if (User.IsInRole(POSCreditRepayments.Common.GlobalConstants.AdminRole))
+                    {
+                        <li>@Html.ActionLink("Partners", "AllFinancialInstitutions", "Admin")</li>
+                    }
+                    @if (User.IsInRole(POSCreditRepayments.Common.GlobalConstants.FinancialInstitutionRole))
+                    {
+                        <li>@Html.ActionLink("Profile", "FinancialInstitutionProfile", "FinancialInstitution")</li>
+                    }
                     @Html.Partial("_LoginPartial")
                 </ul>
             </div>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<POSCreditRepayments.Web.ViewModels.FinancialInstitutions.AllFinancialInstitutionsViewModel>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr class="row">
+            <th class="col-md-6 text-center">Name</th>
+            <th class="col-md-6 text-center">Approved</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @foreach (var cp in Model)
+        {
+            <tr class="row">
+                <td class="col-md-6">
+                    @Html.ActionLink(cp.Name, "FinancialInstitutionProfile", "FinancialInstitution", new { id = cp.Id }, new { })
+                </td>
+                <td class="col-md-6">
+                    @if (cp.IsApproved)
+                    {
+                        using (Ajax.BeginForm("RejectFinancialInstitution", "Admin", new { id = cp.Id },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "Post",
+                                UpdateTargetId = "institutions",
+                                InsertionMode = InsertionMode.Replace
+                            },
+                            new { }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Disapprove " class="btn btn-danger" />
+                        }
+                    }
+                    else
+                    {
+                        using (Ajax.BeginForm("ApproveFinancialInstitution", "Admin", new { id = cp.Id },
+                            new AjaxOptions
+                            {
+                                HttpMethod = "Post",
+                                UpdateTargetId = "institutions",
+                                InsertionMode = InsertionMode.Replace
+                            },
+                            new { }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Approve " class="btn btn-lg btn-success" />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

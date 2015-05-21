@@ -17,16 +17,12 @@ namespace POSCreditRepayments.Web.Controllers
 
         public ActionResult AllProducts(int? page)
         {
-            // returns IQueryable<ITSystems> representing an unknown number of products
             var allProducts = this.Data.Products
                                   .All()
                                   .Project().To<AllProductsViewModel>()
                                   .OrderBy(u => u.Name);
 
-            // if no page was specified in the querystring, default to the first page (1)
             var pageNumber = page ?? 1;
-
-            // will only contain PageSize systems max because of the pageSize
             var onePageOfProducts = allProducts.ToPagedList(pageNumber, 4);
 
             return this.View(onePageOfProducts);
@@ -40,7 +36,7 @@ namespace POSCreditRepayments.Web.Controllers
                               .AsQueryable()
                               .Where(x => x.ProductId == id)
                               .Project()
-                              .To<AllProductsViewModel>()
+                              .To<ProductDetailsViewModel>()
                               .FirstOrDefault();
             if (article == null)
             {

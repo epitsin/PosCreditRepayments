@@ -70,6 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\POSCreditRepayments.Common\POSCreditRepayments.Common.csproj">
+      <Project>{0e26c23e-4035-4e97-b606-2d90c6ddbc30}</Project>
+      <Name>POSCreditRepayments.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POSCreditRepayments.Models\POSCreditRepayments.Models.csproj">
       <Project>{0c0f970e-347c-48ce-905a-f790abe5faa4}</Project>
       <Name>POSCreditRepayments.Models</Name>

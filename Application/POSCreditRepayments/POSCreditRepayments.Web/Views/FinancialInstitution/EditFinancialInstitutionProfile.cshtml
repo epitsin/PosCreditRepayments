@@ -1,0 +1,73 @@
+﻿@model POSCreditRepayments.Web.ViewModels.FinancialInstitutions.EditFinancialInstitutionProfileViewModel
+    <div class="box">
+        @using (Html.BeginForm("EditFinancialInstitutionProfile", "FinancialInstitution", new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger col-md-offset-1" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CreditIntermerdiary, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.CreditIntermerdiary, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CreditIntermerdiary, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Address, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.PhoneNumber, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Fax, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Fax, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Fax, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.WebSite, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.WebSite, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.WebSite, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.InterestRate, new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.InterestRate, new { @class = "form-control", type = "number" })
+                    @Html.ValidationMessageFor(m => m.InterestRate, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <input type="submit" value="Edit " class="btn btn-lg btn-info" />
+                    @Html.ActionLink("Cancel", "FinancialInstitutionProfile", "FinancialInstitution", new { id = Model.Id }, new { @class = "btn btn-lg btn-info" })
+                </div>
+            </div>
+        }
+    </div>

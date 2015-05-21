@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper.QueryableExtensions;
 using POSCreditRepayments.Data;
 using POSCreditRepayments.Models;
 using POSCreditRepayments.Web.Infrastructure.Populators;
 using POSCreditRepayments.Web.ViewModels.Credits;
+using POSCreditRepayments.Web.ViewModels.EuroFormTemplate;
+using POSCreditRepayments.Web.ViewModels.FinancialInstitutions;
 
 namespace POSCreditRepayments.Web.Controllers
 {
@@ -16,9 +19,9 @@ namespace POSCreditRepayments.Web.Controllers
 
         private readonly double maxIteration = 1000;
 
-        private readonly IDropDownListPopulator populator;
-
         private readonly double precisionRequirement = 0.00000001;
+
+        private readonly IDropDownListPopulator populator;
 
         public CreditController(IPOSCreditRepaymentsData data, IDropDownListPopulator populator)
             : base(data)
@@ -26,9 +29,9 @@ namespace POSCreditRepayments.Web.Controllers
             this.populator = populator;
         }
 
-        public ActionResult BuyProduct(int id)
+        public ActionResult GetOnCredit(int id)
         {
-            CreditViewModel model = new CreditViewModel();
+            CreditEditorTemplateViewModel model = new CreditEditorTemplateViewModel();
             model.FinancialInstitutions = this.populator.GetFinancialInstitutions();
 
             Product product = this.Data.Products.GetById(id);
@@ -37,9 +40,9 @@ namespace POSCreditRepayments.Web.Controllers
             return this.View(model);
         }
 
-        public ActionResult Calculate(CreditViewModel viewModel)
+        public ActionResult Calculate(CreditEditorTemplateViewModel viewModel)
         {
-            int institutionId = int.Parse(viewModel.SelectedFinancialInstitutions.FirstOrDefault());
+            string institutionId = viewModel.SelectedFinancialInstitutions.FirstOrDefault();
             FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(institutionId);
 
             double interestRate = (institution.InterestRate / 1200);
@@ -54,14 +57,13 @@ namespace POSCreditRepayments.Web.Controllers
             cashFlows[0] = -creditAmount;
             for (int i = 1; i <= numOfFlows; i++)
             {
-                cashFlows[i] = monthlyPayment + 2;
+                cashFlows[i] = monthlyPayment + institution.MonthlyTax;
             }
 
             double irr = this.ComputeIrr(cashFlows, numOfFlows);
+            double apr = (Math.Pow(1 + irr, 12) - 1) * 100;
 
-            double apr = Math.Round((Math.Pow(1 + irr, 12) - 1) * 100, 2);
-
-            CalculatedCreditViewModel model = new CalculatedCreditViewModel
+            CreditDisplayTemplateViewModel model = new CreditDisplayTemplateViewModel
             {
                 CreditAmount = Math.Round(creditAmount, 2),
                 Downpayment = viewModel.Downpayment,
@@ -73,18 +75,35 @@ namespace POSCreditRepayments.Web.Controllers
                 InterestAmount = Math.Round(totalAmount - creditAmount, 2),
                 Term = viewModel.Term,
                 MonthlyPayment = Math.Round(monthlyPayment, 2),
+                MonthlyTax = institution.MonthlyTax,
                 Irr = Math.Round(irr * 100, 2),
-                Apr = apr
+                Apr = Math.Round(apr, 2),
+                ProductName = viewModel.Product.Name,
+                ProductPrice = viewModel.Product.Price
             };
 
             return this.View(model);
         }
 
+        public ActionResult GeneratePdfEuroFormTemplate(CreditDisplayTemplateViewModel model)
+        {
+            EuroFormTemplateViewModel template = new EuroFormTemplateViewModel();
+            template.Credit = model;
+            template.FinancialInstitution = this.Data.FinancialInstitutions
+                .All()
+                .Where(fi => fi.Name == model.FinancialInstitutionName)
+                .Project()
+                .To<EditFinancialInstitutionProfileViewModel>()
+                .FirstOrDefault();
+
+            return new Rotativa.ViewAsPdf("EuroFormTemplate", template) { FileName = "EuroFormTemlate.pdf" };
+        }
+
         private double ComputeIrr(double[] cf, int numOfFlows)
         {
-            double old = 0;
-            double newA = 0;
-            double newguessRate = this.lowRate;
+            double oldNpv = 0;
+            double newNpv = 0;
+            double newGuessRate = this.lowRate;
             double guessRate = this.lowRate;
             double lowGuessRate = this.lowRate;
             double highGuessRate = this.highRate;
@@ -98,50 +117,50 @@ namespace POSCreditRepayments.Web.Controllers
                     denom = Math.Pow((1 + guessRate), j);
                     npv = npv + (cf[j] / denom);
                 }
-                
+
                 if ((npv > 0) && (npv < this.precisionRequirement))
                 {
                     break;
                 }
 
-                if (old == 0)
+                if (oldNpv == 0)
                 {
-                    old = npv;
+                    oldNpv = npv;
                 }
                 else
                 {
-                    old = newA;
+                    oldNpv = newNpv;
                 }
 
-                newA = npv;
+                newNpv = npv;
                 if (i > 0)
                 {
-                    if (old < newA)
+                    if (oldNpv < newNpv)
                     {
-                        if (old < 0 && newA < 0)
+                        if (oldNpv < 0 && newNpv < 0)
                         {
-                            highGuessRate = newguessRate;
+                            highGuessRate = newGuessRate;
                         }
                         else
                         {
-                            lowGuessRate = newguessRate;
+                            lowGuessRate = newGuessRate;
                         }
                     }
                     else
                     {
-                        if (old > 0 && newA > 0)
+                        if (oldNpv > 0 && newNpv > 0)
                         {
-                            lowGuessRate = newguessRate;
+                            lowGuessRate = newGuessRate;
                         }
                         else
                         {
-                            highGuessRate = newguessRate;
+                            highGuessRate = newGuessRate;
                         }
                     }
                 }
 
                 guessRate = (lowGuessRate + highGuessRate) / 2;
-                newguessRate = guessRate;
+                newGuessRate = guessRate;
             }
 
             return guessRate;

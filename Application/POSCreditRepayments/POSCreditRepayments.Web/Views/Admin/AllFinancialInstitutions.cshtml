@@ -1,0 +1,10 @@
+﻿@model IEnumerable<POSCreditRepayments.Web.ViewModels.FinancialInstitutions.AllFinancialInstitutionsViewModel>
+
+<div class="row">
+    <div class="box">
+        <h2>Partner financial institutions</h2>
+        <div id="institutions">
+            @Html.Partial("_AllFinancialInstitutionsPartial", Model)
+        </div>
+    </div>
+</div>

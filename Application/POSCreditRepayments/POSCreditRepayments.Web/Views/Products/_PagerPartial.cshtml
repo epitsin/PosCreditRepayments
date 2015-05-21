@@ -1,0 +1,14 @@
+﻿﻿@model IPagedList<POSCreditRepayments.Web.ViewModels.Products.AllProductsViewModel>
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-5">
+        @Html.PagedListPager(Model, page => Url.Action("AllProducts", new { page = page }), new PagedListRenderOptions
+                            {
+                                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                                MaximumPageNumbersToDisplay = 5
+                            })
+    </div>
+</div>

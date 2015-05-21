@@ -1,92 +1,11 @@
-﻿@model POSCreditRepayments.Web.ViewModels.Credits.CalculatedCreditViewModel
+﻿@model POSCreditRepayments.Web.ViewModels.Credits.CreditDisplayTemplateViewModel
 
 <div class="row">
     <div class="box">
         <h2>Your calculated monthly payment is:</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.FinancialInstitutionName, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.FinancialInstitutionName, new { @readonly = "readonly", @class = "form-control" })
-            </div>            
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.TotalAmount, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.TotalAmount, new { @readonly = "readonly", @class = "form-control" })
-            </div>            
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.CreditAmount, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.CreditAmount, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.InterestAmount, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.InterestAmount, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Downpayment, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.Downpayment, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Term, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.Term, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.InterestRatePerMonth, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.InterestRatePerMonth, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.InterestRatePerYear, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.InterestRatePerYear, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Insurance, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.Insurance, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.MonthlyPayment, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.MonthlyPayment, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Irr, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.Irr, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Apr, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(m => m.Apr, new { @readonly = "readonly", @class = "form-control" })
-            </div>
-            @Html.ValidationMessageFor(m => m, string.Empty, new { @class = "text-danger col-md-offset-1" })
-        </div>
+        @Html.DisplayForModel("CreditDisplayTemplateViewModel")
+
+        @Html.ActionLink("Download PDF", "GeneratePdfEuroFormTemplate", Model, new { @class = "btn btn-lg btn-info" })
     </div>
 </div>

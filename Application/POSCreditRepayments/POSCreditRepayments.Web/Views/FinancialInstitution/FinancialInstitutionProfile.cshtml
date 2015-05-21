@@ -1,0 +1,65 @@
+﻿@model POSCreditRepayments.Web.ViewModels.FinancialInstitutions.FinancialInstitutionProfileViewModel
+    <div class="box">
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.UserName, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.IsApproved, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.CheckBoxFor(m => m.IsApproved, new { @readonly = "readonly", @class = "form-control", disabled = "disabled" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.InterestRate, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.InterestRate, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.Name, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Name, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.Address, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Address, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Email, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.Fax, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Fax, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.WebSite, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.WebSite, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group padding">
+            @Html.LabelFor(m => m.CreditIntermerdiary, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.CreditIntermerdiary, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+
+        @Html.ActionLink("Edit", "EditFinancialInstitutionProfile", "FinancialInstitution", new { id = Model.Id }, new { @class = "btn btn-lg btn-info" })
+    </div>

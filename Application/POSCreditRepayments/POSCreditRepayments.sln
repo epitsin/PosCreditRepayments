@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSCreditRepayments.Web", "POSCreditRepayments.Web\POSCreditRepayments.Web.csproj", "{B1DB428E-B14C-4F99-92FE-A21516D9DB9E}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSCreditRepayments.Data", "POSCreditRepayments.Data\POSCreditRepayments.Data.csproj", "{765214FC-2DEA-408C-8569-9798CE00F797}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSCreditRepayments.Models", "POSCreditRepayments.Models\POSCreditRepayments.Models.csproj", "{0C0F970E-347C-48CE-905A-F790ABE5FAA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{16C23AF6-572B-46FB-B85D-CA2B4439294E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSCreditRepayments.Common", "POSCreditRepayments.Common\POSCreditRepayments.Common.csproj", "{0E26C23E-4035-4E97-B606-2D90C6DDBC30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{0C0F970E-347C-48CE-905A-F790ABE5FAA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C0F970E-347C-48CE-905A-F790ABE5FAA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C0F970E-347C-48CE-905A-F790ABE5FAA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E26C23E-4035-4E97-B606-2D90C6DDBC30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E26C23E-4035-4E97-B606-2D90C6DDBC30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E26C23E-4035-4E97-B606-2D90C6DDBC30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E26C23E-4035-4E97-B606-2D90C6DDBC30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +47,6 @@ Global
 		{B1DB428E-B14C-4F99-92FE-A21516D9DB9E} = {2FD41A7B-10EA-4539-B8D3-5EB5236572DA}
 		{765214FC-2DEA-408C-8569-9798CE00F797} = {077A1EF8-D9BA-4D60-B156-CBA8B36AB280}
 		{0C0F970E-347C-48CE-905A-F790ABE5FAA4} = {077A1EF8-D9BA-4D60-B156-CBA8B36AB280}
+		{0E26C23E-4035-4E97-B606-2D90C6DDBC30} = {16C23AF6-572B-46FB-B85D-CA2B4439294E}
 	EndGlobalSection
 EndGlobal
