@@ -43,13 +43,57 @@ namespace POSCreditRepayments.Web.Controllers
 
                 if (institution != null)
                 {
-                    institution.InterestRate = model.InterestRate;
                     institution.Address = model.Address;
                     institution.CreditIntermerdiary = model.CreditIntermerdiary;
                     institution.Email = model.Email;
                     institution.Fax = model.Fax;
                     institution.PhoneNumber = model.PhoneNumber;
                     institution.WebSite = model.WebSite;
+
+                    foreach (var viewModel in model.FinancialInstitutionPurchaseProfileViewModels)
+                    {
+                        FinancialInstitutionPurchaseProfile financialInstitutionPurchaseProfile =
+                            this.Data.FinancialInstitutionPurchaseProfiles
+                            .All()
+                            .FirstOrDefault(p => p.PurchaseProfile.MonthsMin == viewModel.MonthsMin &&
+                                                 p.PurchaseProfile.MonthsMax == viewModel.MonthsMax &&
+                                                 p.PurchaseProfile.PriceMin == viewModel.PriceMin &&
+                                                 p.PurchaseProfile.PriceMax == viewModel.PriceMax &&
+                                                 p.FinancialInstitutionId == institution.Id);
+
+                        if (financialInstitutionPurchaseProfile == null)
+                        {
+                            PurchaseProfile purchaseProfile = this.Data.PurchaseProfiles
+                                                                  .All()
+                                                                  .FirstOrDefault(p => p.MonthsMin == viewModel.MonthsMin &&
+                                                                                       p.MonthsMax == viewModel.MonthsMax &&
+                                                                                       p.PriceMin == viewModel.PriceMin &&
+                                                                                       p.PriceMax == viewModel.PriceMax);
+
+                            if (purchaseProfile == null)
+                            {
+                                purchaseProfile = new PurchaseProfile
+                                {
+                                    MonthsMin = viewModel.MonthsMin,
+                                    MonthsMax = viewModel.MonthsMax,
+                                    PriceMin = viewModel.PriceMin,
+                                    PriceMax = viewModel.PriceMax
+                                };
+
+                                this.Data.PurchaseProfiles.Add(purchaseProfile);
+                            }
+
+                            financialInstitutionPurchaseProfile = new FinancialInstitutionPurchaseProfile
+                            {
+                                PurchaseProfile = purchaseProfile,
+                                FinancialInstitution = institution
+                            };
+
+                            this.Data.FinancialInstitutionPurchaseProfiles.Add(financialInstitutionPurchaseProfile);
+                        }
+
+                        financialInstitutionPurchaseProfile.InterestRate = viewModel.InterestRate;
+                    }
 
                     this.Data.SaveChanges();
 
@@ -63,7 +107,7 @@ namespace POSCreditRepayments.Web.Controllers
         [HttpGet]
         public ActionResult FinancialInstitutionProfile(string id)
         {
-            if(id== null)
+            if (id == null)
             {
                 id = this.CurrentUser.Id;
             }

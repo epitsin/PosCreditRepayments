@@ -11,6 +11,8 @@ namespace POSCreditRepayments.Data
         {
         }
 
+        public IDbSet<Credit> Credits { get; set; }
+
         public DbContext DbContext
         {
             get
@@ -19,9 +21,13 @@ namespace POSCreditRepayments.Data
             }
         }
 
+        public IDbSet<FinancialInstitutionPurchaseProfile> FinancialInstitutionPurchaseProfiles { get; set; }
+
         public IDbSet<FinancialInstitution> FinancialInstitutions { get; set; }
 
         public IDbSet<Product> Products { get; set; }
+
+        public IDbSet<PurchaseProfile> PurchaseProfiles { get; set; }
 
         public static POSCreditRepaymentsDbContext Create()
         {

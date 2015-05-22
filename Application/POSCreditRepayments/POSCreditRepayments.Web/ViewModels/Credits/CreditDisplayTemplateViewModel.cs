@@ -8,7 +8,7 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         public double Apr { get; set; }
 
         [DisplayName("Amount of the credit paid")]
-        public double CreditAmount { get; set; }
+        public decimal CreditAmount { get; set; }
 
         [DisplayName("Down payment")]
         public decimal Downpayment { get; set; }
@@ -20,10 +20,10 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         public string Insurance { get; set; }
 
         [DisplayName("Insurance amount")]
-        public double InsuranceAmount { get; set; }
+        public decimal InsuranceAmount { get; set; }
 
         [DisplayName("Amount of the interest paid")]
-        public double InterestAmount { get; set; }
+        public decimal InterestAmount { get; set; }
 
         [DisplayName("Interest rate (% per month)")]
         public double InterestRatePerMonth { get; set; }
@@ -35,7 +35,7 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         public double Irr { get; set; }
 
         [DisplayName("Monthly payment")]
-        public double MonthlyPayment { get; set; }
+        public decimal MonthlyPayment { get; set; }
 
         [DisplayName("Product name")]
         public string ProductName { get; set; }
@@ -47,9 +47,9 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         public int Term { get; set; }
 
         [DisplayName("Total amount to pay (principal + interest)")]
-        public double TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
 
         [DisplayName("Monthly tax set by the financial institution")]
-        public double MonthlyTax { get; set; }
+        public decimal MonthlyTax { get; set; }
     }
 }

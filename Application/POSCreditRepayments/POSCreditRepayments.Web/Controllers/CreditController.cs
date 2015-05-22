@@ -34,17 +34,25 @@ namespace POSCreditRepayments.Web.Controllers
         {
             string institutionId = viewModel.SelectedFinancialInstitutions.FirstOrDefault();
             FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(institutionId);
+            
+            decimal priceWithoutDownpayment = (viewModel.Product.Price - viewModel.Downpayment);
+            double interestRate = institution.FinancialInstitutionPurchaseProfiles
+                                             .Where(x => x.PurchaseProfile.MonthsMin <= viewModel.Term &&
+                                                         x.PurchaseProfile.MonthsMax >= viewModel.Term &&
+                                                         x.PurchaseProfile.PriceMin <= priceWithoutDownpayment &&
+                                                         x.PurchaseProfile.PriceMax >= priceWithoutDownpayment)
+                                             .FirstOrDefault()
+                                             .InterestRate;
+            double interestRatePerMonthInDouble = interestRate / 1200;
 
-            double interestRate = (institution.InterestRate / 1200);
-            double interestPayment = 1 - 1 / Math.Pow(1 + interestRate, viewModel.Term);
-            double priceWithoutDownpayment = (double)(viewModel.Product.Price - viewModel.Downpayment);
-            double insurance = this.CalculateInsurance(viewModel.InsuranceType) * priceWithoutDownpayment;
-            double creditAmount = priceWithoutDownpayment + insurance;
-            double monthlyPayment = (interestRate * creditAmount) / interestPayment;
-            double totalAmount = monthlyPayment * viewModel.Term;
+            double interestPayment = 1 - 1 / Math.Pow(1 + interestRatePerMonthInDouble, viewModel.Term);
+            decimal insurance = this.CalculateInsurance(viewModel.InsuranceType) * priceWithoutDownpayment;
+            decimal creditAmount = priceWithoutDownpayment + insurance;
+            decimal monthlyPayment = ((decimal)interestRatePerMonthInDouble * creditAmount) / (decimal)interestPayment;
+            decimal totalAmount = monthlyPayment * viewModel.Term;
 
             int numOfFlows = viewModel.Term + 1;
-            double[] cashFlows = new double[37];
+            decimal[] cashFlows = new decimal[37];
             cashFlows[0] = -creditAmount;
             for (int i = 1; i <= numOfFlows; i++)
             {
@@ -60,8 +68,8 @@ namespace POSCreditRepayments.Web.Controllers
                 Downpayment = viewModel.Downpayment,
                 FinancialInstitutionName = institution.Name,
                 Insurance = viewModel.InsuranceType.ToString(),
-                InterestRatePerMonth = Math.Round(institution.InterestRate / 12, 2),
-                InterestRatePerYear = Math.Round(institution.InterestRate, 2),
+                InterestRatePerMonth = Math.Round(interestRate / 12, 2),
+                InterestRatePerYear = Math.Round(interestRate, 2),
                 TotalAmount = Math.Round(totalAmount, 2),
                 InterestAmount = Math.Round(totalAmount - creditAmount, 2),
                 Term = viewModel.Term,
@@ -102,7 +110,26 @@ namespace POSCreditRepayments.Web.Controllers
             return this.View(model);
         }
 
-        private double ComputeIrr(double[] cf, int numOfFlows)
+        private decimal CalculateInsurance(InsuranceType insuranceType)
+        {
+            switch (insuranceType)
+            {
+                case InsuranceType.Life:
+                    return 0.02m;
+                case InsuranceType.Unemployment:
+                    return 0.03m;
+                case InsuranceType.LifeAndUnemployment:
+                    return 0.05m;
+                case InsuranceType.Purchase:
+                    return 0.04m;
+                case InsuranceType.All:
+                    return 0.09m;
+                default:
+                    return 0;
+            }
+        }
+
+        private double ComputeIrr(decimal[] cf, int numOfFlows)
         {
             double oldNpv = 0;
             double newNpv = 0;
@@ -118,7 +145,7 @@ namespace POSCreditRepayments.Web.Controllers
                 for (int j = 0; j < numOfFlows; j++)
                 {
                     denom = Math.Pow((1 + guessRate), j);
-                    npv = npv + (cf[j] / denom);
+                    npv = npv + ((double)cf[j] / denom);
                 }
 
                 if ((npv > 0) && (npv < this.precisionRequirement))
@@ -167,25 +194,6 @@ namespace POSCreditRepayments.Web.Controllers
             }
 
             return guessRate;
-        }
-
-        private double CalculateInsurance(InsuranceType insuranceType)
-        {
-            switch (insuranceType)
-            {
-                case InsuranceType.Life:
-                    return 0.02;
-                case InsuranceType.Unemployment:
-                    return 0.03;
-                case InsuranceType.LifeAndUnemployment:
-                    return 0.05;
-                case InsuranceType.Purchase:
-                    return 0.04;
-                case InsuranceType.All:
-                    return 0.09;
-                default:
-                    return 0;
-            }
         }
     }
 }

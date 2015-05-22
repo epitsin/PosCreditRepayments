@@ -240,6 +240,7 @@
     <Compile Include="ViewModels\FinancialInstitutions\EditFinancialInstitutionProfileViewModel.cs" />
     <Compile Include="ViewModels\Products\AllProductsViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsViewModel.cs" />
+    <Compile Include="ViewModels\PurchaseProfiles\FinancialInstitutionPurchaseProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ajaxSearch.css" />

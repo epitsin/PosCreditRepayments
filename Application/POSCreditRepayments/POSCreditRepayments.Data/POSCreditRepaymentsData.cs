@@ -17,6 +17,22 @@ namespace POSCreditRepayments.Data
             this.repositories = new Dictionary<Type, object>();
         }
 
+        public IRepository<Credit> Credits
+        {
+            get
+            {
+                return this.GetRepository<Credit>();
+            }
+        }
+
+        public IRepository<FinancialInstitutionPurchaseProfile> FinancialInstitutionPurchaseProfiles
+        {
+            get
+            {
+                return this.GetRepository<FinancialInstitutionPurchaseProfile>();
+            }
+        }
+
         public IRepository<FinancialInstitution> FinancialInstitutions
         {
             get
@@ -30,6 +46,14 @@ namespace POSCreditRepayments.Data
             get
             {
                 return this.GetRepository<Product>();
+            }
+        }
+
+        public IRepository<PurchaseProfile> PurchaseProfiles
+        {
+            get
+            {
+                return this.GetRepository<PurchaseProfile>();
             }
         }
 

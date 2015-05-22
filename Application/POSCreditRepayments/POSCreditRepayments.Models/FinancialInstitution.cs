@@ -7,24 +7,25 @@ namespace POSCreditRepayments.Models
         public FinancialInstitution()
         {
             this.Credits = new HashSet<Credit>();
+            this.FinancialInstitutionPurchaseProfiles = new HashSet<FinancialInstitutionPurchaseProfile>();
         }
-
-        public virtual ICollection<Credit> Credits { get; set; }
-
-        public double InterestRate { get; set; }
-
-        public double MonthlyTax { get; set; }
-
-        public bool IsApproved { get; set; }
-
-        public string Name { get; set; }
 
         public string Address { get; set; }
 
+        public string CreditIntermerdiary { get; set; }
+
+        public virtual ICollection<Credit> Credits { get; set; }
+
         public string Fax { get; set; }
 
-        public string WebSite { get; set; }
+        public virtual ICollection<FinancialInstitutionPurchaseProfile> FinancialInstitutionPurchaseProfiles { get; set; }
 
-        public string CreditIntermerdiary { get; set; }
+        public bool IsApproved { get; set; }
+
+        public decimal MonthlyTax { get; set; }
+
+        public string Name { get; set; }
+
+        public string WebSite { get; set; }
     }
 }

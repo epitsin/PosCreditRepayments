@@ -1,6 +1,7 @@
 ﻿using POSCreditRepayments.Models;
 using POSCreditRepayments.Web.Infrastructure.Mappings;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
@@ -20,10 +21,7 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
 
         [HiddenInput(DisplayValue = false)]
         public string Id { get; set; }
-
-        [Display(Name = "Interest rate")]
-        public double InterestRate { get; set; }
-
+        
         [Display(Name = "Approved by admin")]
         public bool IsApproved { get; set; }
 
@@ -37,5 +35,7 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
 
         [Display(Name = "Website")]
         public string WebSite { get; set; }
+
+        public List<FinancialInstitutionPurchaseProfile> FinancialInstitutionPurchaseProfiles { get; set; }
     }
 }

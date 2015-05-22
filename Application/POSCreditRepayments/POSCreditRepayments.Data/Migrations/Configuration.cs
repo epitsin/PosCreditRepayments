@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using POSCreditRepayments.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using POSCreditRepayments.Common;
+using POSCreditRepayments.Models;
 
 namespace POSCreditRepayments.Data.Migrations
 {
@@ -31,32 +32,192 @@ namespace POSCreditRepayments.Data.Migrations
                 return;
             }
 
+            PurchaseProfile upToOneYearUpTo2000 = new PurchaseProfile
+            {
+                MonthsMin = 3,
+                MonthsMax = 12,
+                PriceMin = 100,
+                PriceMax = 2000
+            };
+
+            PurchaseProfile upToOneYearAbove2000 = new PurchaseProfile
+            {
+                MonthsMin = 3,
+                MonthsMax = 12,
+                PriceMin = 2000.001m,
+                PriceMax = 100000
+            };
+            PurchaseProfile upToTwoYearsUpTo2000 = new PurchaseProfile
+            {
+                MonthsMin = 13,
+                MonthsMax = 24,
+                PriceMin = 100,
+                PriceMax = 2000
+            };
+            PurchaseProfile upToTwoYearsAbove2000 = new PurchaseProfile
+            {
+                MonthsMin = 13,
+                MonthsMax = 24,
+                PriceMin = 2000.001m,
+                PriceMax = 100000
+            };
+            PurchaseProfile upToThreeYearsUpTo2000 = new PurchaseProfile
+            {
+                MonthsMin = 25,
+                MonthsMax = 36,
+                PriceMin = 100,
+                PriceMax = 2000
+            };
+            PurchaseProfile upToThreeYearsAbove2000 = new PurchaseProfile
+            {
+                MonthsMin = 25,
+                MonthsMax = 36,
+                PriceMin = 2000.001m,
+                PriceMax = 100000
+            };
 
             FinancialInstitution fiBank = new FinancialInstitution
             {
                 Name = "FiBank",
-                InterestRate = 23,
-                MonthlyTax = 1.5,
+                MonthlyTax = 1.5m,
                 UserName = "FiBank",
                 IsApproved = true
+            };
+
+            fiBank.FinancialInstitutionPurchaseProfiles = new List<FinancialInstitutionPurchaseProfile>()
+            {
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = fiBank,
+                    PurchaseProfile = upToOneYearUpTo2000,
+                    InterestRate = 23
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = fiBank,
+                    PurchaseProfile = upToOneYearAbove2000,
+                    InterestRate = 22
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = fiBank,
+                    PurchaseProfile = upToTwoYearsUpTo2000,
+                    InterestRate = 22
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = fiBank,
+                    PurchaseProfile = upToTwoYearsAbove2000,
+                    InterestRate = 21
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = fiBank,
+                    PurchaseProfile = upToThreeYearsUpTo2000,
+                    InterestRate = 21
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = fiBank,
+                    PurchaseProfile = upToThreeYearsAbove2000,
+                    InterestRate = 20
+                }
             };
 
             FinancialInstitution uniCredit = new FinancialInstitution
             {
                 Name = "UniCredit",
-                InterestRate = 26,
-                MonthlyTax = 2,
+                MonthlyTax = 2m,
                 UserName = "UniCredit",
                 IsApproved = true
+            };
+
+            uniCredit.FinancialInstitutionPurchaseProfiles = new List<FinancialInstitutionPurchaseProfile>()
+            {
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = uniCredit,
+                    PurchaseProfile = upToOneYearUpTo2000,
+                    InterestRate = 26
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = uniCredit,
+                    PurchaseProfile = upToOneYearAbove2000,
+                    InterestRate = 25
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = uniCredit,
+                    PurchaseProfile = upToTwoYearsUpTo2000,
+                    InterestRate = 25
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = uniCredit,
+                    PurchaseProfile = upToTwoYearsAbove2000,
+                    InterestRate = 24
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = uniCredit,
+                    PurchaseProfile = upToThreeYearsUpTo2000,
+                    InterestRate = 24
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = uniCredit,
+                    PurchaseProfile = upToThreeYearsAbove2000,
+                    InterestRate = 23
+                }
             };
 
             FinancialInstitution allianz = new FinancialInstitution
             {
                 Name = "Allianz",
-                InterestRate = 28,
-                MonthlyTax = 2.5,
+                MonthlyTax = 2.5m,
                 UserName = "Allianz",
                 IsApproved = true
+            };
+
+            allianz.FinancialInstitutionPurchaseProfiles = new List<FinancialInstitutionPurchaseProfile>()
+            {
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = allianz,
+                    PurchaseProfile = upToOneYearUpTo2000,
+                    InterestRate = 27
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = allianz,
+                    PurchaseProfile = upToOneYearAbove2000,
+                    InterestRate = 26
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = allianz,
+                    PurchaseProfile = upToTwoYearsUpTo2000,
+                    InterestRate = 26
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = allianz,
+                    PurchaseProfile = upToTwoYearsAbove2000,
+                    InterestRate = 25
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = allianz,
+                    PurchaseProfile = upToThreeYearsUpTo2000,
+                    InterestRate = 25
+                },
+                new FinancialInstitutionPurchaseProfile
+                {
+                    FinancialInstitution = allianz,
+                    PurchaseProfile = upToThreeYearsAbove2000,
+                    InterestRate = 24
+                }
             };
 
             var userManager = new UserManager<User>(new UserStore<User>(context));
