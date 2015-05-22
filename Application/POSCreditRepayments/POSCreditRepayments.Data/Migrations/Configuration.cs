@@ -37,7 +37,8 @@ namespace POSCreditRepayments.Data.Migrations
                 Name = "FiBank",
                 InterestRate = 23,
                 MonthlyTax = 1.5,
-                UserName = "FiBank"
+                UserName = "FiBank",
+                IsApproved = true
             };
 
             FinancialInstitution uniCredit = new FinancialInstitution
@@ -45,7 +46,8 @@ namespace POSCreditRepayments.Data.Migrations
                 Name = "UniCredit",
                 InterestRate = 26,
                 MonthlyTax = 2,
-                UserName = "UniCredit"
+                UserName = "UniCredit",
+                IsApproved = true
             };
 
             FinancialInstitution allianz = new FinancialInstitution
@@ -53,7 +55,8 @@ namespace POSCreditRepayments.Data.Migrations
                 Name = "Allianz",
                 InterestRate = 28,
                 MonthlyTax = 2.5,
-                UserName = "Allianz"
+                UserName = "Allianz",
+                IsApproved = true
             };
 
             var userManager = new UserManager<User>(new UserStore<User>(context));

@@ -11,6 +11,7 @@ using POSCreditRepayments.Web.ViewModels.FinancialInstitutions;
 
 namespace POSCreditRepayments.Web.Controllers
 {
+    [Authorize(Roles = "User, Admin")]
     public class CreditController : BaseController
     {
         private readonly double highRate = 0.5;
@@ -19,25 +20,14 @@ namespace POSCreditRepayments.Web.Controllers
 
         private readonly double maxIteration = 1000;
 
-        private readonly double precisionRequirement = 0.00000001;
-
         private readonly IDropDownListPopulator populator;
+
+        private readonly double precisionRequirement = 0.00000001;
 
         public CreditController(IPOSCreditRepaymentsData data, IDropDownListPopulator populator)
             : base(data)
         {
             this.populator = populator;
-        }
-
-        public ActionResult GetOnCredit(int id)
-        {
-            CreditEditorTemplateViewModel model = new CreditEditorTemplateViewModel();
-            model.FinancialInstitutions = this.populator.GetFinancialInstitutions();
-
-            Product product = this.Data.Products.GetById(id);
-            model.Product = product;
-
-            return this.View(model);
         }
 
         public ActionResult Calculate(CreditEditorTemplateViewModel viewModel)
@@ -47,8 +37,9 @@ namespace POSCreditRepayments.Web.Controllers
 
             double interestRate = (institution.InterestRate / 1200);
             double interestPayment = 1 - 1 / Math.Pow(1 + interestRate, viewModel.Term);
-            decimal insurance = viewModel.HasInsurance ? viewModel.Product.Price * 3.3m / 100 : 0;
-            double creditAmount = (double)(viewModel.Product.Price - viewModel.Downpayment) + (double)insurance;
+            double priceWithoutDownpayment = (double)(viewModel.Product.Price - viewModel.Downpayment);
+            double insurance = this.CalculateInsurance(viewModel.InsuranceType) * priceWithoutDownpayment;
+            double creditAmount = priceWithoutDownpayment + insurance;
             double monthlyPayment = (interestRate * creditAmount) / interestPayment;
             double totalAmount = monthlyPayment * viewModel.Term;
 
@@ -68,7 +59,7 @@ namespace POSCreditRepayments.Web.Controllers
                 CreditAmount = Math.Round(creditAmount, 2),
                 Downpayment = viewModel.Downpayment,
                 FinancialInstitutionName = institution.Name,
-                Insurance = viewModel.HasInsurance ? "Included" : "Not included",
+                Insurance = viewModel.InsuranceType.ToString(),
                 InterestRatePerMonth = Math.Round(institution.InterestRate / 12, 2),
                 InterestRatePerYear = Math.Round(institution.InterestRate, 2),
                 TotalAmount = Math.Round(totalAmount, 2),
@@ -79,7 +70,8 @@ namespace POSCreditRepayments.Web.Controllers
                 Irr = Math.Round(irr * 100, 2),
                 Apr = Math.Round(apr, 2),
                 ProductName = viewModel.Product.Name,
-                ProductPrice = viewModel.Product.Price
+                ProductPrice = viewModel.Product.Price,
+                InsuranceAmount = insurance
             };
 
             return this.View(model);
@@ -90,13 +82,24 @@ namespace POSCreditRepayments.Web.Controllers
             EuroFormTemplateViewModel template = new EuroFormTemplateViewModel();
             template.Credit = model;
             template.FinancialInstitution = this.Data.FinancialInstitutions
-                .All()
-                .Where(fi => fi.Name == model.FinancialInstitutionName)
-                .Project()
-                .To<EditFinancialInstitutionProfileViewModel>()
-                .FirstOrDefault();
+                                                .All()
+                                                .Where(fi => fi.Name == model.FinancialInstitutionName)
+                                                .Project()
+                                                .To<EditFinancialInstitutionProfileViewModel>()
+                                                .FirstOrDefault();
 
             return new Rotativa.ViewAsPdf("EuroFormTemplate", template) { FileName = "EuroFormTemlate.pdf" };
+        }
+
+        public ActionResult GetOnCredit(int id)
+        {
+            CreditEditorTemplateViewModel model = new CreditEditorTemplateViewModel();
+            model.FinancialInstitutions = this.populator.GetFinancialInstitutions();
+
+            Product product = this.Data.Products.GetById(id);
+            model.Product = product;
+
+            return this.View(model);
         }
 
         private double ComputeIrr(double[] cf, int numOfFlows)
@@ -164,6 +167,25 @@ namespace POSCreditRepayments.Web.Controllers
             }
 
             return guessRate;
+        }
+
+        private double CalculateInsurance(InsuranceType insuranceType)
+        {
+            switch (insuranceType)
+            {
+                case InsuranceType.Life:
+                    return 0.02;
+                case InsuranceType.Unemployment:
+                    return 0.03;
+                case InsuranceType.LifeAndUnemployment:
+                    return 0.05;
+                case InsuranceType.Purchase:
+                    return 0.04;
+                case InsuranceType.All:
+                    return 0.09;
+                default:
+                    return 0;
+            }
         }
     }
 }

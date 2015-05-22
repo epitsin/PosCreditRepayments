@@ -8,6 +8,7 @@ using POSCreditRepayments.Web.ViewModels.Products;
 
 namespace POSCreditRepayments.Web.Controllers
 {
+    [Authorize(Roles = "User, Admin, Financial institution")]
     public class ProductsController : BaseController
     {
         public ProductsController(IPOSCreditRepaymentsData data)

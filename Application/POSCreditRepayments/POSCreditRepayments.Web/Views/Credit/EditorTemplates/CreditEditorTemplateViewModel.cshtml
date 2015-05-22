@@ -21,7 +21,7 @@
 <div class="form-group">
     @Html.LabelFor(m => m.Downpayment, new { @class = "col-md-4 control-label" })
     <div class="col-md-8">
-        @Html.TextBoxFor(m => m.Downpayment, new { @class = "form-control", type = "number" })
+        @Html.TextBoxFor(m => m.Downpayment, new { @class = "form-control", type = "number", id = "downpayment" })
     </div>
     @Html.ValidationMessageFor(m => m.Downpayment, string.Empty, new { @class = "text-danger col-md-offset-1" })
 </div>
@@ -33,14 +33,8 @@
     @Html.ValidationMessageFor(m => m.Term, string.Empty, new { @class = "text-danger col-md-offset-1" })
 </div>
 <div class="form-group">
-    @Html.LabelFor(m => m.HasInsurance, new { @class = "col-md-4 control-label" })
-    <div class="col-md-1">
-        @{
-            decimal insurance = Math.Round(Model.Product.Price * 3.3m / 100, 2);
-        }
-        <strong>@insurance</strong>
-    </div>
-    <div class="col-md-1">
-        @Html.CheckBoxFor(m => m.HasInsurance, new { @class = "form-control" })
+    @Html.LabelFor(m => m.InsuranceType, new { @class = "col-md-4 control-label" })
+    <div class="col-md-4">
+        @Html.EnumDropDownListFor(m => m.InsuranceType, new { @class = "form-control", @onchange = "calculateInsurance(this.value, " + Model.Product.Price + ")" })
     </div>
 </div>

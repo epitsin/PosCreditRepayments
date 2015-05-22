@@ -22,6 +22,8 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
         [Display(Name = "Interest rate")]
         public double InterestRate { get; set; }
 
+        public double MonthlyTax { get; set; }
+
         public string Name { get; set; }
 
         [Display(Name = "Phone number")]

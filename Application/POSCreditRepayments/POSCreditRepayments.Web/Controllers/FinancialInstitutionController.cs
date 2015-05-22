@@ -8,6 +8,7 @@ using POSCreditRepayments.Web.ViewModels.FinancialInstitutions;
 
 namespace POSCreditRepayments.Web.Controllers
 {
+    [Authorize(Roles = "Financial institution, Admin")]
     public class FinancialInstitutionController : BaseController
     {
         public FinancialInstitutionController(IPOSCreditRepaymentsData data)

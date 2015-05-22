@@ -66,7 +66,7 @@
                 1. Credit Type
             </td>
             <td class="col-xs-6">
-                Consumer credit for aquiring goods and / or services
+                Consumer credit for aquiring goods
             </td>
         </tr>
         <tr>
@@ -82,8 +82,7 @@
                 3. Credit absorbtion conditions(How and when is the money received?)
             </td>
             <td class="col-xs-6">
-                Средствата по кредита се превеждат от Кредитора по сметка на продавача на стоката/застрахователя по
-                застраховката, избрана/и от Потребителя.
+                The loan funds are transferred from the creditor to the account of the seller of the goods / insurer chosen by the user.
             </td>
         </tr>
         <tr>
@@ -208,7 +207,7 @@
                 - Insurance related to the credit agreement , or
             </td>
             <td class="col-xs-6">
-                No
+                @Model.Credit.InsuranceAmount
             </td>
         </tr>
         <tr>
@@ -237,7 +236,7 @@
                     Fee for opening an account 0.00 BGN
                 </p>
                 <p>
-                    Service fee expense 0,00 BGN
+                    Service fee expense @Model.FinancialInstitution.MonthlyTax BGN (monthly)
                 </p>
             </td>
         </tr>

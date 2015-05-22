@@ -19,6 +19,9 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         [DisplayName("Product insurance")]
         public string Insurance { get; set; }
 
+        [DisplayName("Insurance amount")]
+        public double InsuranceAmount { get; set; }
+
         [DisplayName("Amount of the interest paid")]
         public double InterestAmount { get; set; }
 

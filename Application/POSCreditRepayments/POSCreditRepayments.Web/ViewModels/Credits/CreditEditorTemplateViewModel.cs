@@ -17,7 +17,7 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         public IEnumerable<SelectListItem> FinancialInstitutions { get; set; }
 
         [DisplayName("Product insurance")]
-        public bool HasInsurance { get; set; }
+        public InsuranceType InsuranceType { get; set; }
 
         public Product Product { get; set; }
 
