@@ -101,7 +101,7 @@ namespace POSCreditRepayments.Web.Controllers
                 }
             }
 
-            return this.RedirectToAction("Index", "Home"); // TODO: dispaly error
+            return this.RedirectToAction("Error", "Home");
         }
 
         [HttpGet]
@@ -123,7 +123,7 @@ namespace POSCreditRepayments.Web.Controllers
                 return this.View(institution);
             }
 
-            return this.RedirectToAction("Index", "Home"); // TODO: dispaly error
+            return this.RedirectToAction("Error", "Home");
         }
     }
 }

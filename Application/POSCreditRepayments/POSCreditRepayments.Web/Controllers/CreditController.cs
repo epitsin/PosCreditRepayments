@@ -18,7 +18,7 @@ namespace POSCreditRepayments.Web.Controllers
 
         private readonly double lowRate = 0.01;
 
-        private readonly double maxIteration = 1000;
+        private readonly double maxIteration = 100;
 
         private readonly IDropDownListPopulator populator;
 

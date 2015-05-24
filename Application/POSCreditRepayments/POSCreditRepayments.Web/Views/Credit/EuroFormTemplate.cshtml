@@ -1,384 +1,385 @@
 ﻿@model POSCreditRepayments.Web.ViewModels.EuroFormTemplate.EuroFormTemplateViewModel
 
-<h2 class="text-center">POS Credit</h2>
+<div class="container">
+    <div class="box">
+        <h2 class="text-center">European standard form to provide information on consumer loans</h2>
+        <h3>
+            Part I. Identification and contact information of the creditor / creditor intermediary
+        </h3>
+        <table class="table table-bordered text-center">
+            <tr>
+                <td class="col-xs-6">
+                    1. Creditor
+                </td>
+                <td class="col-xs-6">
+                    @Model.FinancialInstitution.Name
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    2. Address
+                </td>
+                <td class="col-xs-6">
+                    @Model.FinancialInstitution.Address
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    3. Phone Number
+                </td>
+                <td class="col-xs-6">
+                    @Model.FinancialInstitution.PhoneNumber
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    5. Fax
+                </td>
+                <td class="col-xs-6">
+                    @Model.FinancialInstitution.Fax
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    6. Web Site
+                </td>
+                <td class="col-xs-6">
+                    @Model.FinancialInstitution.WebSite
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    7. Credit Intermediary
+                </td>
+                <td class="col-xs-6">
+                    @Model.FinancialInstitution.CreditIntermerdiary
+                </td>
+            </tr>
+        </table>
 
-<div class="box">
-    <h3>
-        Part I. Identification and contact information of the creditor / creditor intermediary
-    </h3>
-    <table class="table table-bordered text-center">
-        <tr>
-            <td class="col-xs-6">
-                1. Creditor
-            </td>
-            <td class="col-xs-6">
-                @Model.FinancialInstitution.Name
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                2. Address
-            </td>
-            <td class="col-xs-6">
-                @Model.FinancialInstitution.Address
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                3. Phone Number
-            </td>
-            <td class="col-xs-6">
-                @Model.FinancialInstitution.PhoneNumber
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                5. Fax
-            </td>
-            <td class="col-xs-6">
-                @Model.FinancialInstitution.Fax
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                6. Web Site
-            </td>
-            <td class="col-xs-6">
-                @Model.FinancialInstitution.WebSite
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                7. Credit Intermediary
-            </td>
-            <td class="col-xs-6">
-                @Model.FinancialInstitution.CreditIntermerdiary
-            </td>
-        </tr>
-    </table>
+        <h3>
+            Part II. Other important conditions about the credit contract
+        </h3>
+        <table class="table table-bordered text-center">
+            <tr>
+                <td class="col-xs-6">
+                    1. Credit Type
+                </td>
+                <td class="col-xs-6">
+                    Consumer credit for aquiring goods and / or services.
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    2. Credit amount(Maximum amout(limit) or the whole sum, provided on account of the credit contract)
+                </td>
+                <td class="col-xs-6">
+                    @Model.Credit.CreditAmount
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    3. Credit absorbtion conditions(How and when is the money received?)
+                </td>
+                <td class="col-xs-6">
+                    The loan funds are transferred from the creditor to the account of the seller of the goods / insurer chosen by the user.
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4. Term of contract
+                </td>
+                <td class="col-xs-6">
+                    @Model.Credit.Term
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    5. Indications of the amount, number, terms and dates of the repayments
+                </td>
+                <td class="col-xs-6">
+                    You must pay the following:
+                    <p>
+                        -downpayment: @Model.Credit.Downpayment
+                    </p>
+                    <p>
+                        -amount of each payment: @Model.Credit.MonthlyPayment
+                    </p>
+                    <p>
+                        -number of payments: @Model.Credit.Term
+                    </p>
+                    <p>
+                        -maturity date: @DateTime.Now.AddMonths(Model.Credit.Term)
+                    </p>
+                    The interests and / or the costs of the credit are due as follows:
+                    <p>
+                        -by bank account of @Model.FinancialInstitution.Name
+                    </p>
+                    <p>
+                        -by pay-desk of @Model.FinancialInstitution.Name
+                    </p>
+                    <p>
+                        -by e-pay / b-pay
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    6. The whole sum that you have to pay(the whole amount of the credit(principal) including the interests and costs, which may originate in connection with your credit )
+                </td>
+                <td class="col-xs-6">
+                    @Model.Credit.TotalAmount
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    7. When it is applicable for the specified type of credit:
+                    <p>
+                        When the credit is provided under the form of deferred payment for aquiring a good or a service or is connected with the deliverance of a specific good or the privision of a service:
+                    </p>
+                </td>
+                <td class="col-xs-6"></td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    Name of the good / service:
+                </td>
+                <td class="col-xs-6">
+                    @Model.Credit.ProductName
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    Price of the good / service in cash:
+                </td>
+                <td class="col-xs-6">
+                    @Model.Credit.ProductPrice
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    8. When applicable for the specific credit:
+                    Required securities:
+                </td>
+                <td class="col-xs-6">
+                    Not applicable for the specific credit
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    9. When applicable for the specific credit:
+                    Credit repayments, which do not lead to immediate pay off of the whole amount of the credit(principal)
+                </td>
+                <td class="col-xs-6">
+                    Not applicable for the specific credit
+                </td>
+            </tr>
+        </table>
 
-    <h3>
-        Part II. Other important conditions about the credit contract
-    </h3>
-    <table class="table table-bordered text-center">
-        <tr>
-            <td class="col-xs-6">
-                1. Credit Type
-            </td>
-            <td class="col-xs-6">
-                Consumer credit for aquiring goods
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                2. Credit amount(Maximum amout(limit) or the whole sum, provided on account of the credit contract)
-            </td>
-            <td class="col-xs-6">
-                @Model.Credit.CreditAmount
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                3. Credit absorbtion conditions(How and when is the money received?)
-            </td>
-            <td class="col-xs-6">
-                The loan funds are transferred from the creditor to the account of the seller of the goods / insurer chosen by the user.
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4. Term of contract
-            </td>
-            <td class="col-xs-6">
-                @Model.Credit.Term
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                5. Indications of the amount, number, terms and dates of the repayments
-            </td>
-            <td class="col-xs-6">
-                You must pay the following:
-                <p>
-                    -downpayment: @Model.Credit.Downpayment
-                </p>
-                <p>
-                    -amount of each payment: @Model.Credit.MonthlyPayment
-                </p>
-                <p>
-                    -number of payments: @Model.Credit.Term
-                </p>
-                <p>
-                    -maturity date: @DateTime.Now.AddMonths(Model.Credit.Term)
-                </p>
-                The interests and / or the costs of the credit are due as follows:
-                <p>
-                    -by bank account of @Model.FinancialInstitution.Name
-                </p>
-                <p>
-                    -by pay-desk of @Model.FinancialInstitution.Name
-                </p>
-                <p>
-                    -by e-pay / b-pay
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                6. The whole sum that you have to pay(the whole amount of the credit(principal) including the interests and costs, which may originate in connection with your credit )
-            </td>
-            <td class="col-xs-6">
-                @Model.Credit.TotalAmount
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                7. When it is applicable for the specified type of credit:
-                <p>
-                    When the credit is provided under the form of deferred payment for aquiring a good or a service or is connected with the deliverance of a specific good or the privision of a service:
-                </p>
-            </td>
-            <td class="col-xs-6"></td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                Name of the good / service:
-            </td>
-            <td class="col-xs-6">
-                @Model.Credit.ProductName
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                Price of the good / service in cash:
-            </td>
-            <td class="col-xs-6">
-                @Model.Credit.ProductPrice
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                8. When applicable for the specific credit:
-                Required securities:
-            </td>
-            <td class="col-xs-6">
-                Not applicable for the specific credit
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                9. When applicable for the specific credit:
-                Credit repayments, which do not lead to immediate pay off of the whole amount of the credit(principal)
-            </td>
-            <td class="col-xs-6">
-                Not applicable for the specific credit
-            </td>
-        </tr>
-    </table>
+        <h3>
+            Part III. Costs of the credit
+        </h3>
+        <table class="table table-bordered text-center">
+            <tr>
+                <td class="col-xs-6">
+                    1. The interest rate on the credit and the conditions for its application and, if applicable to the type of credit , the different rates which are relevant for the credit.
+                </td>
+                <td class="col-xs-6">
+                    @Model.Credit.InterestRatePerYear % FIXED
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    2. Annual percentage rate (APR) The total cost to the consumer , present or future , expressed as an annual percentage of the total amount of the credit. APR allows you to compare various proposals for the conclusion of the credit agreement .
+                </td>
+                <td class="col-xs-6">
+                    APR - @Model.Credit.Apr %
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    3. Required to obtain the credit or to obtain it in particular proposed conditions must contract for:
+                </td>
+                <td class="col-xs-6"></td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    - Insurance related to the credit agreement , or
+                </td>
+                <td class="col-xs-6">
+                    @Model.Credit.InsuranceAmount
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    - Another contract for additional service.
+                </td>
+                <td class="col-xs-6">
+                    No
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4. Related to the contract costs:
+                </td>
+                <td class="col-xs-6"></td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4.1 . Where applicable for the credit type :
+                    <p>
+                        Costs of opening and maintenance of one or more accounts in connection with the credit agreement .
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    <p>
+                        Fee for opening an account 0.00 BGN
+                    </p>
+                    <p>
+                        Service fee expense @Model.FinancialInstitution.MonthlyTax BGN (monthly)
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4.2 . Where applicable for the loan type :
+                    <p>
+                        Cost of using a payment instrument (eg credit card ) .
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    <p>
+                        Not applicable for this type of credit
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4.3 . Where applicable for the loan type :
+                    <p>
+                        Any other costs associated with the credit agreement.
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    <p>
+                        Not applicable for this type of credit
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4.4 . Where applicable for the loan type :
+                    <p>
+                        The conditions under which the above-mentioned costs related to the credit agreement can be changed .
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    <p>
+                        Not applicable for this type of credit
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4.5 . Where applicable for the loan type :
+                    <p>
+                        Obligation to pay notarial fees and expenses of notary.
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    <p>
+                        Not applicable for this type of credit
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4.6 . Costs payable in arrears
+                    <p>
+                        Presence of unpaid contributions can lead to serious adverse consequences for you (including enforcement) and obtaining credit more difficult in the future.
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    <p>
+                        In arrears, you have to pay legal interest on all overdue amount for the period of notice - from the due date until the date of effective payment.
+                    </p>
+                </td>
+            </tr>
+        </table>
 
-    <h3>
-        Part III. Costs of the credit
-    </h3>
-    <table class="table table-bordered text-center">
-        <tr>
-            <td class="col-xs-6">
-                1. The interest rate on the credit and the conditions for its application and, if applicable to the type of credit , the different rates which are relevant for the credit.
-            </td>
-            <td class="col-xs-6">
-                @Model.Credit.InterestRatePerYear % FIXED
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                2. Annual percentage rate (APR) The total cost to the consumer , present or future , expressed as an annual percentage of the total amount of the credit. APR allows you to compare various proposals for the conclusion of the credit agreement .
-            </td>
-            <td class="col-xs-6">
-                APR - @Model.Credit.Apr %
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                3. Required to obtain the credit or to obtain it in particular proposed conditions must contract for:
-            </td>
-            <td class="col-xs-6"></td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                - Insurance related to the credit agreement , or
-            </td>
-            <td class="col-xs-6">
-                @Model.Credit.InsuranceAmount
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                - Another contract for additional service.
-            </td>
-            <td class="col-xs-6">
-                No
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4. Related to the contract costs:
-            </td>
-            <td class="col-xs-6"></td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4.1 . Where applicable for the credit type :
-                <p>
-                    Costs of opening and maintenance of one or more accounts in connection with the credit agreement .
-                </p>
-            </td>
-            <td class="col-xs-6">
-                <p>
-                    Fee for opening an account 0.00 BGN
-                </p>
-                <p>
-                    Service fee expense @Model.FinancialInstitution.MonthlyTax BGN (monthly)
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4.2 . Where applicable for the loan type :
-                <p>
-                    Cost of using a payment instrument (eg credit card ) .
-                </p>
-            </td>
-            <td class="col-xs-6">
-                <p>
+        <h3>
+            Part IV. Other important conditions of the credit agreement :
+        </h3>
+        <table class="table table-bordered text-center">
+            <tr>
+                <td class="col-xs-6">
+                    1. Right of withdrawal
+                    <p>
+                        You have the right of withdrawal from the credit agreement within 14 calendar days.
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    You have the right , without compensation or penalty and without giving any reason to cancel the credit agreement within 14 calendar days from the date of signing the contract.
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    2. Early repayment
+                    <p>
+                        You have the right at any time to discharge fully or partially your obligations under the credit agreement .
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    You have the right at any time to discharge fully or partially his obligations under a credit agreement. In these cases, you are entitled to reduce the total cost of credit, such reduction consisting of the interest and the costs for the remaining duration of the contract.
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    3. Where applicable to the type of credit:
+                    <p>
+                        The creditor is entitled to compensation for early repayment of the loan.
+                    </p>
+                </td>
+                <td class="col-xs-6">
+                    In early repayment of credit by consumers, the creditor is entitled to compensation for possible costs directly linked to early repayment of the loan in the amount of 1 percent of the prepaid amount of the loan , when the remaining contract period is greater than one year and amounted to 0.5 percent of the amount of credit repaid early - when the remainder of the contract is less than one year.
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    4. Inspection of the Central Credit Register or in another database used in the Republic of Bulgaria to assess the creditworthiness of consumers. The creditor is entitled to compensation for early repayment of the loan.
+                </td>
+                <td class="col-xs-6">
+                    Where a creditor refuses to give you credit based on inspection in the Central Credit Register or in another database of Art. 16 , he is obliged to inform you immediately and without charge of the outcome of reference. This does not apply to cases where the provision of such information is prohibited by European legislation or is contrary to the requirement to ensure public order and security.
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    6. Where applicable to the type of loan :
+                    The period for which the creditor is bound by the predefined information.
+                </td>
+                <td class="col-xs-6">
+                    Date: @DateTime.Now.ToString("dd.MM.yyyy")
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    Part V. When applicable to the type of loan , additional information in the provision of financial services from a distance
+                </td>
+                <td class="col-xs-6">
                     Not applicable for this type of credit
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4.3 . Where applicable for the loan type :
-                <p>
-                    Any other costs associated with the credit agreement.
-                </p>
-            </td>
-            <td class="col-xs-6">
-                <p>
-                    Not applicable for this type of credit
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4.4 . Where applicable for the loan type :
-                <p>
-                    The conditions under which the above-mentioned costs related to the credit agreement can be changed .
-                </p>
-            </td>
-            <td class="col-xs-6">
-                <p>
-                    Not applicable for this type of credit
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4.5 . Where applicable for the loan type :
-                <p>
-                    Obligation to pay notarial fees and expenses of notary.
-                </p>
-            </td>
-            <td class="col-xs-6">
-                <p>
-                    Not applicable for this type of credit
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4.6 . Costs payable in arrears
-                <p>
-                    Presence of unpaid contributions can lead to serious adverse consequences for you (including enforcement) and obtaining credit more difficult in the future.
-                </p>
-            </td>
-            <td class="col-xs-6">
-                <p>
-                    In arrears, you have to pay legal interest on all overdue amount for the period of notice - from the due date until the date of effective payment.
-                </p>
-            </td>
-        </tr>
-    </table>
-
-    <h3>
-        Part IV. Other important conditions of the credit agreement :
-    </h3>
-    <table class="table table-bordered text-center">
-        <tr>
-            <td class="col-xs-6">
-                1. Right of withdrawal
-                <p>
-                    You have the right of withdrawal from the credit agreement within 14 calendar days.
-                </p>
-            </td>
-            <td class="col-xs-6">
-                You have the right , without compensation or penalty and without giving any reason to cancel the credit agreement within 14 calendar days from the date of signing the contract.
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                2. Early repayment
-                <p>
-                    You have the right at any time to discharge fully or partially your obligations under the credit agreement .
-                </p>
-            </td>
-            <td class="col-xs-6">
-                You have the right at any time to discharge fully or partially his obligations under a credit agreement. In these cases, you are entitled to reduce the total cost of credit, such reduction consisting of the interest and the costs for the remaining duration of the contract.
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                3. Where applicable to the type of credit:
-                <p>
-                    The creditor is entitled to compensation for early repayment of the loan.
-                </p>
-            </td>
-            <td class="col-xs-6">
-                In early repayment of credit by consumers, the creditor is entitled to compensation for possible costs directly linked to early repayment of the loan in the amount of 1 percent of the prepaid amount of the loan , when the remaining contract period is greater than one year and amounted to 0.5 percent of the amount of credit repaid early - when the remainder of the contract is less than one year.
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                4. Inspection of the Central Credit Register or in another database used in the Republic of Bulgaria to assess the creditworthiness of consumers. The creditor is entitled to compensation for early repayment of the loan.
-            </td>
-            <td class="col-xs-6">
-                Where a creditor refuses to give you credit based on inspection in the Central Credit Register or in another database of Art. 16 , he is obliged to inform you immediately and without charge of the outcome of reference. This does not apply to cases where the provision of such information is prohibited by European legislation or is contrary to the requirement to ensure public order and security.
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                6. Where applicable to the type of loan :
-                The period for which the creditor is bound by the pre .
-            </td>
-            <td class="col-xs-6">
-                Date: @DateTime.Now.ToString("dd.MM.yyyy")
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                Part V. When applicable to the type of loan , additional information in the provision of financial services from a distance
-            </td>
-            <td class="col-xs-6">
-                Not applicable for this type of credit
-            </td>
-        </tr>
-        <tr>
-            <td class="col-xs-6">
-                <p>
-                    Official :
-                </p>
-                <p class="pull-right">
-                    (signature and stamp)
-                </p>
-            </td>
-            <td class="col-xs-6"></td>
-        </tr>
-    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-xs-6">
+                    <p>
+                        Official :
+                    </p>
+                    <p class="pull-right">
+                        (signature and stamp)
+                    </p>
+                </td>
+                <td class="col-xs-6"></td>
+            </tr>
+        </table>
+    </div>
 </div>
