@@ -49,6 +49,8 @@ namespace POSCreditRepayments.Web.Controllers
                     institution.Fax = model.Fax;
                     institution.PhoneNumber = model.PhoneNumber;
                     institution.WebSite = model.WebSite;
+                    institution.ApplicationFee = model.ApplicationFee;
+                    institution.MonthlyFee = model.MonthlyFee;
 
                     foreach (var viewModel in model.FinancialInstitutionPurchaseProfileViewModels)
                     {

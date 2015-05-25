@@ -36,6 +36,12 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
         [Display(Name = "Website")]
         public string WebSite { get; set; }
 
+        [Display(Name = "Application fee")]
+        public decimal ApplicationFee { get; set; }
+
+        [Display(Name = "Monthly fee")]
+        public decimal MonthlyFee { get; set; }
+
         public List<FinancialInstitutionPurchaseProfile> FinancialInstitutionPurchaseProfiles { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace POSCreditRepayments.Web.Controllers
             string institutionId = viewModel.SelectedFinancialInstitutions.FirstOrDefault();
             FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(institutionId);
             
-            decimal priceWithoutDownpayment = (viewModel.Product.Price - viewModel.Downpayment);
+            decimal priceWithoutDownpayment = (viewModel.Product.Price + institution.ApplicationFee - viewModel.Downpayment);
             double interestRate = institution.FinancialInstitutionPurchaseProfiles
                                              .Where(x => x.PurchaseProfile.MonthsMin <= viewModel.Term &&
                                                          x.PurchaseProfile.MonthsMax >= viewModel.Term &&
@@ -56,7 +56,7 @@ namespace POSCreditRepayments.Web.Controllers
             cashFlows[0] = -creditAmount;
             for (int i = 1; i <= numOfFlows; i++)
             {
-                cashFlows[i] = monthlyPayment + institution.MonthlyTax;
+                cashFlows[i] = monthlyPayment + institution.MonthlyFee;
             }
 
             double irr = this.ComputeIrr(cashFlows, numOfFlows);
@@ -74,7 +74,7 @@ namespace POSCreditRepayments.Web.Controllers
                 InterestAmount = Math.Round(totalAmount - creditAmount, 2),
                 Term = viewModel.Term,
                 MonthlyPayment = Math.Round(monthlyPayment, 2),
-                MonthlyTax = institution.MonthlyTax,
+                MonthlyTax = institution.MonthlyFee,
                 Irr = Math.Round(irr * 100, 2),
                 Apr = Math.Round(apr, 2),
                 ProductName = viewModel.Product.Name,

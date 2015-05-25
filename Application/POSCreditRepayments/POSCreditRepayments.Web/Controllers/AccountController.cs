@@ -4,6 +4,7 @@ using Microsoft.Owin.Security;
 using POSCreditRepayments.Common;
 using POSCreditRepayments.Models;
 using POSCreditRepayments.Web.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -21,7 +22,7 @@ namespace POSCreditRepayments.Web.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -33,9 +34,9 @@ namespace POSCreditRepayments.Web.Controllers
             {
                 return signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                signInManager = value; 
+            private set
+            {
+                signInManager = value;
             }
         }
 
@@ -119,7 +120,7 @@ namespace POSCreditRepayments.Web.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,7 +156,92 @@ namespace POSCreditRepayments.Web.Controllers
 
                 if (model.IsFinancialInstitution)
                 {
-                    user = new FinancialInstitution { UserName = model.UserName, Email = model.Email, Name = model.BusinessName };
+                    PurchaseProfile upToOneYearUpTo2000 = new PurchaseProfile
+                    {
+                        MonthsMin = 3,
+                        MonthsMax = 12,
+                        PriceMin = 100,
+                        PriceMax = 2000
+                    };
+
+                    PurchaseProfile upToOneYearAbove2000 = new PurchaseProfile
+                    {
+                        MonthsMin = 3,
+                        MonthsMax = 12,
+                        PriceMin = 2000.001m,
+                        PriceMax = 100000
+                    };
+                    PurchaseProfile upToTwoYearsUpTo2000 = new PurchaseProfile
+                    {
+                        MonthsMin = 13,
+                        MonthsMax = 24,
+                        PriceMin = 100,
+                        PriceMax = 2000
+                    };
+                    PurchaseProfile upToTwoYearsAbove2000 = new PurchaseProfile
+                    {
+                        MonthsMin = 13,
+                        MonthsMax = 24,
+                        PriceMin = 2000.001m,
+                        PriceMax = 100000
+                    };
+                    PurchaseProfile upToThreeYearsUpTo2000 = new PurchaseProfile
+                    {
+                        MonthsMin = 25,
+                        MonthsMax = 36,
+                        PriceMin = 100,
+                        PriceMax = 2000
+                    };
+                    PurchaseProfile upToThreeYearsAbove2000 = new PurchaseProfile
+                    {
+                        MonthsMin = 25,
+                        MonthsMax = 36,
+                        PriceMin = 2000.001m,
+                        PriceMax = 100000
+                    };
+
+                    FinancialInstitution financialInstitution = new FinancialInstitution
+                    {
+                        UserName = model.UserName,
+                        Email = model.Email,
+                        Name = model.BusinessName
+                    };
+
+                    financialInstitution.FinancialInstitutionPurchaseProfiles =
+                        new List<FinancialInstitutionPurchaseProfile>()
+                    {
+                        new FinancialInstitutionPurchaseProfile
+                        {
+                            FinancialInstitution = financialInstitution,
+                            PurchaseProfile = upToOneYearUpTo2000
+                        },
+                        new FinancialInstitutionPurchaseProfile
+                        {
+                            FinancialInstitution = financialInstitution,
+                            PurchaseProfile = upToOneYearAbove2000
+                        },
+                        new FinancialInstitutionPurchaseProfile
+                        {
+                            FinancialInstitution = financialInstitution,
+                            PurchaseProfile = upToTwoYearsUpTo2000
+                        },
+                        new FinancialInstitutionPurchaseProfile
+                        {
+                            FinancialInstitution = financialInstitution,
+                            PurchaseProfile = upToTwoYearsAbove2000
+                        },
+                        new FinancialInstitutionPurchaseProfile
+                        {
+                            FinancialInstitution = financialInstitution,
+                            PurchaseProfile = upToThreeYearsUpTo2000
+                        },
+                        new FinancialInstitutionPurchaseProfile
+                        {
+                            FinancialInstitution = financialInstitution,
+                            PurchaseProfile = upToThreeYearsAbove2000
+                        }
+                    };
+                    user = financialInstitution;
                     role = GlobalConstants.FinancialInstitutionRole;
                 }
                 else

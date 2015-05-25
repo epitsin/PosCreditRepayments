@@ -79,7 +79,8 @@ namespace POSCreditRepayments.Data.Migrations
             FinancialInstitution fiBank = new FinancialInstitution
             {
                 Name = "FiBank",
-                MonthlyTax = 1.5m,
+                MonthlyFee = 1.5m,
+                ApplicationFee = 15m,
                 UserName = "FiBank",
                 IsApproved = true
             };
@@ -127,7 +128,8 @@ namespace POSCreditRepayments.Data.Migrations
             FinancialInstitution uniCredit = new FinancialInstitution
             {
                 Name = "UniCredit",
-                MonthlyTax = 2m,
+                MonthlyFee = 2m,
+                ApplicationFee = 20m,
                 UserName = "UniCredit",
                 IsApproved = true
             };
@@ -175,7 +177,8 @@ namespace POSCreditRepayments.Data.Migrations
             FinancialInstitution allianz = new FinancialInstitution
             {
                 Name = "Allianz",
-                MonthlyTax = 2.5m,
+                MonthlyFee = 2.5m,
+                ApplicationFee = 25m,
                 UserName = "Allianz",
                 IsApproved = true
             };

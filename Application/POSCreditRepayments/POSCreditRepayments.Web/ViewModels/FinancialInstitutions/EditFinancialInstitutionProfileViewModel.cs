@@ -21,8 +21,12 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
 
         [HiddenInput(DisplayValue = false)]
         public string Id { get; set; }
-        
-        public decimal MonthlyTax { get; set; }
+
+        [Display(Name = "Monthly fee")]
+        public decimal MonthlyFee { get; set; }
+
+        [Display(Name = "Application fee")]
+        public decimal ApplicationFee { get; set; }
 
         public string Name { get; set; }
 

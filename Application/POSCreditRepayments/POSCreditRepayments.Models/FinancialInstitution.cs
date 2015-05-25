@@ -22,7 +22,9 @@ namespace POSCreditRepayments.Models
 
         public bool IsApproved { get; set; }
 
-        public decimal MonthlyTax { get; set; }
+        public decimal MonthlyFee { get; set; }
+
+        public decimal ApplicationFee { get; set; }
 
         public string Name { get; set; }
 
