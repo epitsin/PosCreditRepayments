@@ -13,7 +13,8 @@ namespace POSCreditRepayments.Data.Migrations
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = true;
-            // TODO turn off data loss
+
+            // TODO: turn off data loss in release mode
             this.AutomaticMigrationDataLossAllowed = true;
             this.ContextKey = "POSCreditRepayments.Data.POSCreditRepaymentsDbContext";
         }

@@ -8,9 +8,12 @@ namespace POSCreditRepayments.Models
         {
             this.Credits = new HashSet<Credit>();
             this.FinancialInstitutionPurchaseProfiles = new HashSet<FinancialInstitutionPurchaseProfile>();
+            this.Insurance = new HashSet<Insurance>();
         }
 
         public string Address { get; set; }
+
+        public decimal ApplicationFee { get; set; }
 
         public string CreditIntermerdiary { get; set; }
 
@@ -20,11 +23,11 @@ namespace POSCreditRepayments.Models
 
         public virtual ICollection<FinancialInstitutionPurchaseProfile> FinancialInstitutionPurchaseProfiles { get; set; }
 
+        public virtual ICollection<Insurance> Insurance { get; set; }
+
         public bool IsApproved { get; set; }
 
         public decimal MonthlyFee { get; set; }
-
-        public decimal ApplicationFee { get; set; }
 
         public string Name { get; set; }
 

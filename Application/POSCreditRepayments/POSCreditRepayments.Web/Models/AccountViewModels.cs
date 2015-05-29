@@ -83,7 +83,7 @@ namespace POSCreditRepayments.Web.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name = "Are you a cash provider?")]
+        [Display(Name = "Are you a financial institution?")]
         public bool IsFinancialInstitution { get; set; }
 
         [Display(Name = "Business Name")]

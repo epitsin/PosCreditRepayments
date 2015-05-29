@@ -10,7 +10,7 @@
 
         public int FinancialInstitutionId { get; set; }
 
-        public InsuranceType InsuranceType { get; set; }
+        public Insurance Insurance { get; set; }
 
         public virtual Product Product { get; set; }
 

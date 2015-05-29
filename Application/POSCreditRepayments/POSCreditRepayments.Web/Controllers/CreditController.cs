@@ -34,7 +34,10 @@ namespace POSCreditRepayments.Web.Controllers
         {
             string institutionId = viewModel.SelectedFinancialInstitutions.FirstOrDefault();
             FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(institutionId);
-            
+
+            decimal insurance = (decimal)institution.Insurance
+                .FirstOrDefault(x => x.Type == viewModel.InsuranceType)
+                .PercentageRate * viewModel.Product.Price;
             decimal priceWithoutDownpayment = (viewModel.Product.Price + institution.ApplicationFee - viewModel.Downpayment);
             double interestRate = institution.FinancialInstitutionPurchaseProfiles
                                              .Where(x => x.PurchaseProfile.MonthsMin <= viewModel.Term &&
@@ -46,9 +49,8 @@ namespace POSCreditRepayments.Web.Controllers
             double interestRatePerMonthInDouble = interestRate / 1200;
 
             double interestPayment = 1 - 1 / Math.Pow(1 + interestRatePerMonthInDouble, viewModel.Term);
-            decimal insurance = this.CalculateInsurance(viewModel.InsuranceType) * priceWithoutDownpayment;
-            decimal creditAmount = priceWithoutDownpayment + insurance;
-            decimal monthlyPayment = ((decimal)interestRatePerMonthInDouble * creditAmount) / (decimal)interestPayment;
+            decimal creditAmount = priceWithoutDownpayment + (insurance * viewModel.Term);
+            decimal monthlyPayment = ((decimal)interestRatePerMonthInDouble * priceWithoutDownpayment) / (decimal)interestPayment + insurance;
             decimal totalAmount = monthlyPayment * viewModel.Term;
 
             int numOfFlows = viewModel.Term + 1;
