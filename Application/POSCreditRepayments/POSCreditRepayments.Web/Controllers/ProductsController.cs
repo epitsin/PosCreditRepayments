@@ -34,7 +34,6 @@ namespace POSCreditRepayments.Web.Controllers
         {
             var article = this.Data.Products
                               .All()
-                              .AsQueryable()
                               .Where(x => x.ProductId == id)
                               .Project()
                               .To<ProductDetailsViewModel>()
