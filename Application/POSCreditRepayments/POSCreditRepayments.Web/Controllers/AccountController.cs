@@ -241,6 +241,50 @@ namespace POSCreditRepayments.Web.Controllers
                             PurchaseProfile = upToThreeYearsAbove2000
                         }
                     };
+
+                    Insurance insurance1 = new Insurance
+                    {
+                        Type = InsuranceType.All,
+                        PercentageRate = 0.1,
+                        FinancialInstitution = financialInstitution
+                    };
+
+                    Insurance insurance2 = new Insurance
+                    {
+                        Type = InsuranceType.Life,
+                        PercentageRate = 0.03,
+                        FinancialInstitution = financialInstitution
+                    };
+                    Insurance insurance3 = new Insurance
+                    {
+                        Type = InsuranceType.LifeAndUnemployment,
+                        PercentageRate = 0.05,
+                        FinancialInstitution = financialInstitution
+                    };
+                    Insurance insurance4 = new Insurance
+                    {
+                        Type = InsuranceType.None,
+                        PercentageRate = 0,
+                        FinancialInstitution = financialInstitution
+                    };
+                    Insurance insurance5 = new Insurance
+                    {
+                        Type = InsuranceType.Purchase,
+                        PercentageRate = 0.03,
+                        FinancialInstitution = financialInstitution
+                    };
+                    Insurance insurance6 = new Insurance
+                    {
+                        Type = InsuranceType.Unemployment,
+                        PercentageRate = 0.03,
+                        FinancialInstitution = financialInstitution
+                    };
+
+                    financialInstitution.Insurances = new List<Insurance>()
+                    {
+                        insurance1, insurance2, insurance3, insurance4, insurance5, insurance6
+                    };
+
                     user = financialInstitution;
                     role = GlobalConstants.FinancialInstitutionRole;
                 }

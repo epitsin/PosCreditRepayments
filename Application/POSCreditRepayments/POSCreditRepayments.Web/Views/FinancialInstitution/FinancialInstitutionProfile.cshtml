@@ -60,7 +60,10 @@
             @Html.TextBoxFor(m => m.ApplicationFee, new { @readonly = "readonly", @class = "form-control" })
         </div>
     </div>
-
+    <hr />
+    <div class="row">
+        <h3 class="text-center">Interest rates</h3>
+    </div>
     @foreach (var purchaseProfile in Model.FinancialInstitutionPurchaseProfiles)
     {
         <div class="form-group padding">
@@ -73,6 +76,23 @@
             </div>
             <div class="col-md-8">
                 @Html.TextBoxFor(m => purchaseProfile.InterestRate, new { @readonly = "readonly", @class = "form-control" })
+            </div>
+        </div>
+    }
+    <hr />
+    <div class="row">
+        <h3 class="text-center">Insurance rates</h3>
+    </div>
+    @foreach (var insurance in Model.Insurances)
+    {
+        <div class="form-group padding">
+            <div class="col-md-4 control-label">
+                <label>
+                    @insurance.Type
+                </label>
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => insurance.PercentageRate, new { @readonly = "readonly", @class = "form-control", type = "number" })
             </div>
         </div>
     }

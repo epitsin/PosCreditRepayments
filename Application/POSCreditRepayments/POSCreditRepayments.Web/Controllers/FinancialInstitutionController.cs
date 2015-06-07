@@ -50,7 +50,6 @@ namespace POSCreditRepayments.Web.Controllers
                     institution.PhoneNumber = model.PhoneNumber;
                     institution.WebSite = model.WebSite;
                     institution.ApplicationFee = model.ApplicationFee;
-                    institution.MonthlyFee = model.MonthlyFee;
 
                     foreach (var viewModel in model.FinancialInstitutionPurchaseProfileViewModels)
                     {

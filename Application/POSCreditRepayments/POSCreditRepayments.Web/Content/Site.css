@@ -30,3 +30,7 @@ textarea {
 .padding {
     padding-bottom: 30px;
 }
+
+.narrow {
+    width: 200px;
+}

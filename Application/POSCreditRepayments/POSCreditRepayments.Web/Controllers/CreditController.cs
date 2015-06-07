@@ -35,7 +35,7 @@ namespace POSCreditRepayments.Web.Controllers
             string institutionId = viewModel.SelectedFinancialInstitutions.FirstOrDefault();
             FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(institutionId);
 
-            decimal insurance = (decimal)institution.Insurance
+            decimal insurance = (decimal)institution.Insurances
                 .FirstOrDefault(x => x.Type == viewModel.InsuranceType)
                 .PercentageRate * viewModel.Product.Price;
             decimal priceWithoutDownpayment = (viewModel.Product.Price + institution.ApplicationFee - viewModel.Downpayment);
@@ -46,23 +46,23 @@ namespace POSCreditRepayments.Web.Controllers
                                                          x.PurchaseProfile.PriceMax >= priceWithoutDownpayment)
                                              .FirstOrDefault()
                                              .InterestRate;
-            double interestRatePerMonthInDouble = interestRate / 1200;
+            double interestRatePerMonth = interestRate / 1200;
 
-            double interestPayment = 1 - 1 / Math.Pow(1 + interestRatePerMonthInDouble, viewModel.Term);
+            double interestPayment = 1 - 1 / Math.Pow(1 + interestRatePerMonth, viewModel.Term);
             decimal creditAmount = priceWithoutDownpayment + (insurance * viewModel.Term);
-            decimal monthlyPayment = ((decimal)interestRatePerMonthInDouble * priceWithoutDownpayment) / (decimal)interestPayment + insurance;
+            decimal monthlyPayment = ((decimal)interestRatePerMonth * priceWithoutDownpayment) / (decimal)interestPayment + insurance;
             decimal totalAmount = monthlyPayment * viewModel.Term;
 
-            int numOfFlows = viewModel.Term + 1;
-            decimal[] cashFlows = new decimal[37];
-            cashFlows[0] = -creditAmount;
-            for (int i = 1; i <= numOfFlows; i++)
-            {
-                cashFlows[i] = monthlyPayment + institution.MonthlyFee;
-            }
+            //int numOfFlows = viewModel.Term + 1;
+            //decimal[] cashFlows = new decimal[37];
+            //cashFlows[0] = creditAmount;
+            //for (int i = 1; i <= numOfFlows; i++)
+            //{
+            //    cashFlows[i] = -monthlyPayment;
+            //}
 
-            double irr = this.ComputeIrr(cashFlows, numOfFlows);
-            double apr = (Math.Pow(1 + irr, 12) - 1) * 100;
+           // double irr = this.ComputeIrr(cashFlows, numOfFlows);
+            double apr = (Math.Pow(1 + interestRatePerMonth, 12) - 1) * 100;
 
             CreditDisplayTemplateViewModel model = new CreditDisplayTemplateViewModel
             {
@@ -76,8 +76,7 @@ namespace POSCreditRepayments.Web.Controllers
                 InterestAmount = Math.Round(totalAmount - creditAmount, 2),
                 Term = viewModel.Term,
                 MonthlyPayment = Math.Round(monthlyPayment, 2),
-                MonthlyTax = institution.MonthlyFee,
-                Irr = Math.Round(irr * 100, 2),
+             //   Irr = Math.Round(irr * 100, 2),
                 Apr = Math.Round(apr, 2),
                 ProductName = viewModel.Product.Name,
                 ProductPrice = viewModel.Product.Price,
@@ -112,90 +111,71 @@ namespace POSCreditRepayments.Web.Controllers
             return this.View(model);
         }
 
-        private decimal CalculateInsurance(InsuranceType insuranceType)
-        {
-            switch (insuranceType)
-            {
-                case InsuranceType.Life:
-                    return 0.02m;
-                case InsuranceType.Unemployment:
-                    return 0.03m;
-                case InsuranceType.LifeAndUnemployment:
-                    return 0.05m;
-                case InsuranceType.Purchase:
-                    return 0.04m;
-                case InsuranceType.All:
-                    return 0.09m;
-                default:
-                    return 0;
-            }
-        }
+        //private double ComputeIrr(decimal[] cf, int numOfFlows)
+        //{
+        //    double oldNpv = 0;
+        //    double newNpv = 0;
+        //    double newGuessRate = this.lowRate;
+        //    double guessRate = this.lowRate;
+        //    double lowGuessRate = this.lowRate;
+        //    double highGuessRate = this.highRate;
+        //    double npv = 0;
+        //    double denom = 0;
+        //    for (int i = 0; i < this.maxIteration; i++)
+        //    {
+        //        npv = 0;
+        //        for (int j = 0; j < numOfFlows; j++)
+        //        {
+        //            denom = Math.Pow((1 + guessRate), j);
+        //            npv = npv + ((double)cf[j] / denom);
+        //        }
 
-        private double ComputeIrr(decimal[] cf, int numOfFlows)
-        {
-            double oldNpv = 0;
-            double newNpv = 0;
-            double newGuessRate = this.lowRate;
-            double guessRate = this.lowRate;
-            double lowGuessRate = this.lowRate;
-            double highGuessRate = this.highRate;
-            double npv = 0;
-            double denom = 0;
-            for (int i = 0; i < this.maxIteration; i++)
-            {
-                npv = 0;
-                for (int j = 0; j < numOfFlows; j++)
-                {
-                    denom = Math.Pow((1 + guessRate), j);
-                    npv = npv + ((double)cf[j] / denom);
-                }
+        //        if ((npv > 0) && (npv < this.precisionRequirement))
+        //        {
+        //            break;
+        //        }
 
-                if ((npv > 0) && (npv < this.precisionRequirement))
-                {
-                    break;
-                }
+        //        if (oldNpv == 0)
+        //        {
+        //            oldNpv = npv;
+        //        }
+        //        else
+        //        {
+        //            oldNpv = newNpv;
+        //        }
 
-                if (oldNpv == 0)
-                {
-                    oldNpv = npv;
-                }
-                else
-                {
-                    oldNpv = newNpv;
-                }
+        //        newNpv = npv;
+        //        if (i > 0)
+        //        {
+        //            if (oldNpv < newNpv)
+        //            {
+        //                if (oldNpv < 0 && newNpv < 0)
+        //                {
+        //                    highGuessRate = newGuessRate;
+        //                }
+        //                else
+        //                {
+        //                    lowGuessRate = newGuessRate;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (oldNpv > 0 && newNpv > 0)
+        //                {
+        //                    lowGuessRate = newGuessRate;
+        //                }
+        //                else
+        //                {
+        //                    highGuessRate = newGuessRate;
+        //                }
+        //            }
+        //        }
 
-                newNpv = npv;
-                if (i > 0)
-                {
-                    if (oldNpv < newNpv)
-                    {
-                        if (oldNpv < 0 && newNpv < 0)
-                        {
-                            highGuessRate = newGuessRate;
-                        }
-                        else
-                        {
-                            lowGuessRate = newGuessRate;
-                        }
-                    }
-                    else
-                    {
-                        if (oldNpv > 0 && newNpv > 0)
-                        {
-                            lowGuessRate = newGuessRate;
-                        }
-                        else
-                        {
-                            highGuessRate = newGuessRate;
-                        }
-                    }
-                }
+        //        guessRate = (lowGuessRate + highGuessRate) / 2;
+        //        newGuessRate = guessRate;
+        //    }
 
-                guessRate = (lowGuessRate + highGuessRate) / 2;
-                newGuessRate = guessRate;
-            }
-
-            return guessRate;
-        }
+        //    return guessRate;
+        //}
     }
 }

@@ -1,11 +1,13 @@
 ﻿@model POSCreditRepayments.Web.ViewModels.EuroFormTemplate.EuroFormTemplateViewModel
 
-<div class="container">
-    <div class="box">
-        <h2 class="text-center">European standard form to provide information on consumer loans</h2>
-        <h3>
-            Part I. Identification and contact information of the creditor / creditor intermediary
-        </h3>
+<div class="box">
+    <div class="container">
+        <p class="narrow">
+            <h2 class="text-center">European standard form to provide information on consumer loans</h2>
+            <h3>
+                Part I. Identification and contact information of the creditor / creditor intermediary
+            </h3>
+        </p>
         <table class="table table-bordered text-center">
             <tr>
                 <td class="col-xs-6">
@@ -57,9 +59,11 @@
             </tr>
         </table>
 
-        <h3>
-            Part II. Other important conditions about the credit contract
-        </h3>
+        <p class="narrow">
+            <h3>
+                Part II. Other important conditions about the credit contract
+            </h3>
+        </p>
         <table class="table table-bordered text-center">
             <tr>
                 <td class="col-xs-6">
@@ -99,28 +103,22 @@
                 </td>
                 <td class="col-xs-6">
                     You must pay the following:
-                    <p>
-                        -downpayment: @Model.Credit.Downpayment
-                    </p>
-                    <p>
-                        -amount of each payment: @Model.Credit.MonthlyPayment
-                    </p>
-                    <p>
-                        -number of payments: @Model.Credit.Term
-                    </p>
-                    <p>
-                        -maturity date: @DateTime.Now.AddMonths(Model.Credit.Term)
-                    </p>
+                    <br />
+                    -downpayment: @Model.Credit.Downpayment
+                    <br />
+                    -amount of each payment: @Model.Credit.MonthlyPayment
+                    <br />
+                    -number of payments: @Model.Credit.Term
+                    <br />
+                    -maturity date: @DateTime.Now.AddMonths(Model.Credit.Term)
+                    <br />
                     The interests and / or the costs of the credit are due as follows:
-                    <p>
-                        -by bank account of @Model.FinancialInstitution.Name
-                    </p>
-                    <p>
-                        -by pay-desk of @Model.FinancialInstitution.Name
-                    </p>
-                    <p>
-                        -by e-pay / b-pay
-                    </p>
+                    <br />
+                    -by bank account of @Model.FinancialInstitution.Name
+                    <br />
+                    -by pay-desk of @Model.FinancialInstitution.Name
+                    <br />
+                    -by e-pay / b-pay
                 </td>
             </tr>
             <tr>
@@ -134,9 +132,8 @@
             <tr>
                 <td class="col-xs-6">
                     7. When it is applicable for the specified type of credit:
-                    <p>
-                        When the credit is provided under the form of deferred payment for aquiring a good or a service or is connected with the deliverance of a specific good or the privision of a service:
-                    </p>
+                    <br />
+                    When the credit is provided under the form of deferred payment for aquiring a good or a service or is connected with the deliverance of a specific good or the privision of a service:
                 </td>
                 <td class="col-xs-6"></td>
             </tr>
@@ -176,9 +173,11 @@
             </tr>
         </table>
 
-        <h3>
-            Part III. Costs of the credit
-        </h3>
+        <p class="narrow">
+            <h3>
+                Part III. Costs of the credit
+            </h3>
+        </p>
         <table class="table table-bordered text-center">
             <tr>
                 <td class="col-xs-6">
@@ -227,96 +226,78 @@
             <tr>
                 <td class="col-xs-6">
                     4.1 . Where applicable for the credit type :
-                    <p>
-                        Costs of opening and maintenance of one or more accounts in connection with the credit agreement .
-                    </p>
+                    <br />
+                    Costs of opening and maintenance of one or more accounts in connection with the credit agreement.
                 </td>
                 <td class="col-xs-6">
-                    <p>
-                        Fee for opening an account @Model.FinancialInstitution.ApplicationFee BGN
-                    </p>
-                    <p>
-                        Service fee expense @Model.FinancialInstitution.MonthlyFee BGN (monthly)
-                    </p>
+                    Fee for opening an account @Model.FinancialInstitution.ApplicationFee BGN
+                    <br />
+                    Service fee expense - NA
                 </td>
             </tr>
             <tr>
                 <td class="col-xs-6">
                     4.2 . Where applicable for the loan type :
-                    <p>
-                        Cost of using a payment instrument (eg credit card ) .
-                    </p>
+                    <br />
+                    Cost of using a payment instrument (eg credit card ).
                 </td>
                 <td class="col-xs-6">
-                    <p>
-                        Not applicable for this type of credit
-                    </p>
+                    Not applicable for this type of credit
                 </td>
             </tr>
             <tr>
                 <td class="col-xs-6">
                     4.3 . Where applicable for the loan type :
-                    <p>
-                        Any other costs associated with the credit agreement.
-                    </p>
+                    <br />
+                    Any other costs associated with the credit agreement.
                 </td>
                 <td class="col-xs-6">
-                    <p>
-                        Not applicable for this type of credit
-                    </p>
+                    Not applicable for this type of credit
                 </td>
             </tr>
             <tr>
                 <td class="col-xs-6">
                     4.4 . Where applicable for the loan type :
-                    <p>
-                        The conditions under which the above-mentioned costs related to the credit agreement can be changed .
-                    </p>
+                    <br />
+                    The conditions under which the above-mentioned costs related to the credit agreement can be changed.
                 </td>
                 <td class="col-xs-6">
-                    <p>
-                        Not applicable for this type of credit
-                    </p>
+                    Not applicable for this type of credit
                 </td>
             </tr>
             <tr>
                 <td class="col-xs-6">
                     4.5 . Where applicable for the loan type :
-                    <p>
-                        Obligation to pay notarial fees and expenses of notary.
-                    </p>
+                    <br />
+                    Obligation to pay notarial fees and expenses of notary.
                 </td>
                 <td class="col-xs-6">
-                    <p>
-                        Not applicable for this type of credit
-                    </p>
+                    Not applicable for this type of credit
                 </td>
             </tr>
             <tr>
                 <td class="col-xs-6">
                     4.6 . Costs payable in arrears
-                    <p>
-                        Presence of unpaid contributions can lead to serious adverse consequences for you (including enforcement) and obtaining credit more difficult in the future.
-                    </p>
+                    <br />
+                    Presence of unpaid contributions can lead to serious adverse consequences for you (including enforcement) and obtaining credit more difficult in the future.
                 </td>
                 <td class="col-xs-6">
-                    <p>
-                        In arrears, you have to pay legal interest on all overdue amount for the period of notice - from the due date until the date of effective payment.
-                    </p>
+                    In arrears, you have to pay legal interest on all overdue amount for the period of notice - from the due date until the date of effective payment.
                 </td>
             </tr>
         </table>
 
-        <h3>
-            Part IV. Other important conditions of the credit agreement :
-        </h3>
+        <p class="narrow">
+            <h3>
+                Part IV. Other important conditions of the credit agreement :
+            </h3>
+        </p>
         <table class="table table-bordered text-center">
             <tr>
                 <td class="col-xs-6">
                     1. Right of withdrawal
-                    <p>
-                        You have the right of withdrawal from the credit agreement within 14 calendar days.
-                    </p>
+                    <br />
+                    You have the right of withdrawal from the credit agreement within 14 calendar days.
                 </td>
                 <td class="col-xs-6">
                     You have the right , without compensation or penalty and without giving any reason to cancel the credit agreement within 14 calendar days from the date of signing the contract.
@@ -325,9 +306,8 @@
             <tr>
                 <td class="col-xs-6">
                     2. Early repayment
-                    <p>
-                        You have the right at any time to discharge fully or partially your obligations under the credit agreement .
-                    </p>
+                    <br />
+                    You have the right at any time to discharge fully or partially your obligations under the credit agreement.
                 </td>
                 <td class="col-xs-6">
                     You have the right at any time to discharge fully or partially his obligations under a credit agreement. In these cases, you are entitled to reduce the total cost of credit, such reduction consisting of the interest and the costs for the remaining duration of the contract.
@@ -336,9 +316,8 @@
             <tr>
                 <td class="col-xs-6">
                     3. Where applicable to the type of credit:
-                    <p>
-                        The creditor is entitled to compensation for early repayment of the loan.
-                    </p>
+                    <br />
+                    The creditor is entitled to compensation for early repayment of the loan.
                 </td>
                 <td class="col-xs-6">
                     In early repayment of credit by consumers, the creditor is entitled to compensation for possible costs directly linked to early repayment of the loan in the amount of 1 percent of the prepaid amount of the loan , when the remaining contract period is greater than one year and amounted to 0.5 percent of the amount of credit repaid early - when the remainder of the contract is less than one year.

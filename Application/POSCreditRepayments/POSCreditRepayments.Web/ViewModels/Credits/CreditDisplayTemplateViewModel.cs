@@ -31,9 +31,6 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         [DisplayName("Interest rate (% per year)")]
         public double InterestRatePerYear { get; set; }
 
-        [DisplayName("Internal Rate of Return (IRR in %)")]
-        public double Irr { get; set; }
-
         [DisplayName("Monthly payment")]
         public decimal MonthlyPayment { get; set; }
 
@@ -48,8 +45,5 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
 
         [DisplayName("Total amount to pay (principal + interest)")]
         public decimal TotalAmount { get; set; }
-
-        [DisplayName("Monthly tax set by the financial institution")]
-        public decimal MonthlyTax { get; set; }
     }
 }

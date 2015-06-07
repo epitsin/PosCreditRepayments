@@ -80,10 +80,52 @@ namespace POSCreditRepayments.Data.Migrations
             FinancialInstitution fiBank = new FinancialInstitution
             {
                 Name = "FiBank",
-                MonthlyFee = 1.5m,
                 ApplicationFee = 15m,
                 UserName = "FiBank",
                 IsApproved = true
+            };
+
+            Insurance insurance1 = new Insurance
+            {
+                Type = InsuranceType.All,
+                PercentageRate = 0.1,
+                FinancialInstitution = fiBank
+            };
+            Insurance insurance2 = new Insurance
+            {
+                Type = InsuranceType.Life,
+                PercentageRate = 0.03,
+                FinancialInstitution = fiBank
+            };
+            Insurance insurance3 = new Insurance
+            {
+                Type = InsuranceType.LifeAndUnemployment,
+                PercentageRate = 0.05,
+                FinancialInstitution = fiBank
+            };
+            Insurance insurance4 = new Insurance
+            {
+                Type = InsuranceType.None,
+                PercentageRate = 0,
+                FinancialInstitution = fiBank
+            };
+            Insurance insurance5 = new Insurance
+            {
+                Type = InsuranceType.Purchase,
+                PercentageRate = 0.04,
+                FinancialInstitution = fiBank
+            };
+            Insurance insurance6 = new Insurance
+            {
+                Type = InsuranceType.Unemployment,
+                PercentageRate = 0.03,
+                FinancialInstitution = fiBank
+            };
+
+
+            fiBank.Insurances = new List<Insurance>()
+            {
+                insurance1, insurance2, insurance3, insurance4, insurance5, insurance6
             };
 
             fiBank.FinancialInstitutionPurchaseProfiles = new List<FinancialInstitutionPurchaseProfile>()
@@ -129,10 +171,52 @@ namespace POSCreditRepayments.Data.Migrations
             FinancialInstitution uniCredit = new FinancialInstitution
             {
                 Name = "UniCredit",
-                MonthlyFee = 2m,
                 ApplicationFee = 20m,
                 UserName = "UniCredit",
                 IsApproved = true
+            };
+
+            Insurance insurance21 = new Insurance
+            {
+                Type = InsuranceType.All,
+                PercentageRate = 0.1,
+                FinancialInstitution = uniCredit
+            };
+
+            Insurance insurance22 = new Insurance
+            {
+                Type = InsuranceType.Life,
+                PercentageRate = 0.03,
+                FinancialInstitution = uniCredit
+            };
+            Insurance insurance23 = new Insurance
+            {
+                Type = InsuranceType.LifeAndUnemployment,
+                PercentageRate = 0.05,
+                FinancialInstitution = uniCredit
+            };
+            Insurance insurance24 = new Insurance
+            {
+                Type = InsuranceType.None,
+                PercentageRate = 0,
+                FinancialInstitution = uniCredit
+            };
+            Insurance insurance25 = new Insurance
+            {
+                Type = InsuranceType.Purchase,
+                PercentageRate = 0.04,
+                FinancialInstitution = uniCredit
+            };
+            Insurance insurance26 = new Insurance
+            {
+                Type = InsuranceType.Unemployment,
+                PercentageRate = 0.03,
+                FinancialInstitution = uniCredit
+            };
+
+            uniCredit.Insurances = new List<Insurance>()
+            {
+                insurance21, insurance22, insurance23, insurance24, insurance25, insurance26
             };
 
             uniCredit.FinancialInstitutionPurchaseProfiles = new List<FinancialInstitutionPurchaseProfile>()
@@ -178,10 +262,52 @@ namespace POSCreditRepayments.Data.Migrations
             FinancialInstitution allianz = new FinancialInstitution
             {
                 Name = "Allianz",
-                MonthlyFee = 2.5m,
                 ApplicationFee = 25m,
                 UserName = "Allianz",
                 IsApproved = true
+            };
+
+            Insurance insurance31 = new Insurance
+            {
+                Type = InsuranceType.All,
+                PercentageRate = 0.1,
+                FinancialInstitution = allianz
+            };
+
+            Insurance insurance32 = new Insurance
+            {
+                Type = InsuranceType.Life,
+                PercentageRate = 0.03,
+                FinancialInstitution = allianz
+            };
+            Insurance insurance33 = new Insurance
+            {
+                Type = InsuranceType.LifeAndUnemployment,
+                PercentageRate = 0.05,
+                FinancialInstitution = allianz
+            };
+            Insurance insurance34 = new Insurance
+            {
+                Type = InsuranceType.None,
+                PercentageRate = 0,
+                FinancialInstitution = allianz
+            };
+            Insurance insurance35 = new Insurance
+            {
+                Type = InsuranceType.Purchase,
+                PercentageRate = 0.04,
+                FinancialInstitution = allianz
+            };
+            Insurance insurance36 = new Insurance
+            {
+                Type = InsuranceType.Unemployment,
+                PercentageRate = 0.03,
+                FinancialInstitution = allianz
+            };
+
+            allianz.Insurances = new List<Insurance>()
+            {
+                insurance31, insurance32, insurance33, insurance34, insurance35, insurance36
             };
 
             allianz.FinancialInstitutionPurchaseProfiles = new List<FinancialInstitutionPurchaseProfile>()
