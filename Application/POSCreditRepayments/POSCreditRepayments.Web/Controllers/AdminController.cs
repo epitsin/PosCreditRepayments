@@ -24,16 +24,7 @@ namespace POSCreditRepayments.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ApproveFinancialInstitution(string id)
-        {
-            this.ChangeApprovalStatus(id);
-            IList<AllFinancialInstitutionsViewModel> institutions = this.GetFinancialInstitutions();
-
-            return this.PartialView("_AllFinancialInstitutionsPartial", institutions);
-        }
-
-        [HttpPost]
-        public ActionResult RejectFinancialInstitution(string id)
+        public ActionResult ToggleFinancialInstitutionsStatus(string id)
         {
             this.ChangeApprovalStatus(id);
             IList<AllFinancialInstitutionsViewModel> institutions = this.GetFinancialInstitutions();

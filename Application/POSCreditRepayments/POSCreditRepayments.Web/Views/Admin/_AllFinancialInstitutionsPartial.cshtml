@@ -15,9 +15,7 @@
                     @Html.ActionLink(cp.Name, "FinancialInstitutionProfile", "FinancialInstitution", new { id = cp.Id }, new { })
                 </td>
                 <td class="col-md-6">
-                    @if (cp.IsApproved)
-                    {
-                        using (Ajax.BeginForm("RejectFinancialInstitution", "Admin", new { id = cp.Id },
+                    @using (Ajax.BeginForm("ToggleFinancialInstitutionsStatus", "Admin", new { id = cp.Id },
                             new AjaxOptions
                             {
                                 HttpMethod = "Post",
@@ -25,24 +23,15 @@
                                 InsertionMode = InsertionMode.Replace
                             },
                             new { }))
+                    {
+                        @Html.AntiForgeryToken()
+                        if (cp.IsApproved)
                         {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="Disapprove " class="btn btn-danger" />
+                            <input type="submit" value="Disapprove" class="btn btn-danger" />
                         }
-                    }
-                    else
-                    {
-                        using (Ajax.BeginForm("ApproveFinancialInstitution", "Admin", new { id = cp.Id },
-                            new AjaxOptions
-                            {
-                                HttpMethod = "Post",
-                                UpdateTargetId = "institutions",
-                                InsertionMode = InsertionMode.Replace
-                            },
-                            new { }))
+                        else
                         {
-                            @Html.AntiForgeryToken()
-                            <input type="submit" value="Approve " class="btn btn-lg btn-success" />
+                            <input type="submit" value="Approve" class="btn btn-success" />
                         }
                     }
                 </td>

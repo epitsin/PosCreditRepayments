@@ -28,7 +28,7 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
         public string Name { get; set; }
 
         [Display(Name = "Phone number")]
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
 
         [Display(Name = "Website")]
         public string WebSite { get; set; }

@@ -47,7 +47,7 @@ namespace POSCreditRepayments.Web.Controllers
                     institution.CreditIntermerdiary = model.CreditIntermerdiary;
                     institution.Email = model.Email;
                     institution.Fax = model.Fax;
-                    institution.PhoneNumber = model.PhoneNumber;
+                    institution.Phone = model.Phone;
                     institution.WebSite = model.WebSite;
                     institution.ApplicationFee = model.ApplicationFee;
 

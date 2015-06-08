@@ -213,32 +213,38 @@ namespace POSCreditRepayments.Web.Controllers
                         new FinancialInstitutionPurchaseProfile
                         {
                             FinancialInstitution = financialInstitution,
-                            PurchaseProfile = upToOneYearUpTo2000
+                            PurchaseProfile = upToOneYearUpTo2000,
+                            InterestRate = 20
                         },
                         new FinancialInstitutionPurchaseProfile
                         {
                             FinancialInstitution = financialInstitution,
-                            PurchaseProfile = upToOneYearAbove2000
+                            PurchaseProfile = upToOneYearAbove2000,
+                            InterestRate = 20
                         },
                         new FinancialInstitutionPurchaseProfile
                         {
                             FinancialInstitution = financialInstitution,
-                            PurchaseProfile = upToTwoYearsUpTo2000
+                            PurchaseProfile = upToTwoYearsUpTo2000,
+                            InterestRate = 20
                         },
                         new FinancialInstitutionPurchaseProfile
                         {
                             FinancialInstitution = financialInstitution,
-                            PurchaseProfile = upToTwoYearsAbove2000
+                            PurchaseProfile = upToTwoYearsAbove2000,
+                            InterestRate = 20
                         },
                         new FinancialInstitutionPurchaseProfile
                         {
                             FinancialInstitution = financialInstitution,
-                            PurchaseProfile = upToThreeYearsUpTo2000
+                            PurchaseProfile = upToThreeYearsUpTo2000,
+                            InterestRate = 20
                         },
                         new FinancialInstitutionPurchaseProfile
                         {
                             FinancialInstitution = financialInstitution,
-                            PurchaseProfile = upToThreeYearsAbove2000
+                            PurchaseProfile = upToThreeYearsAbove2000,
+                            InterestRate = 20
                         }
                     };
 

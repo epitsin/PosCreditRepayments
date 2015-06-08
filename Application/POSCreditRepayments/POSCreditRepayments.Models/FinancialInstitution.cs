@@ -29,7 +29,7 @@ namespace POSCreditRepayments.Models
 
         public string Name { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string Phone { get; set; }
 
         public string WebSite { get; set; }
     }

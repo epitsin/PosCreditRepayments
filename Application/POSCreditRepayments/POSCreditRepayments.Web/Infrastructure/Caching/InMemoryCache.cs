@@ -17,7 +17,7 @@ namespace POSCreditRepayments.Web.Infrastructure.Caching
             if (item == null)
             {
                 item = getItemCallback();
-                HttpContext.Current.Cache.Insert(cacheID, item, null, DateTime.Now.AddMinutes(15), Cache.NoSlidingExpiration);
+                HttpContext.Current.Cache.Insert(cacheID, item, null, DateTime.Now.AddSeconds(10), Cache.NoSlidingExpiration);
             }
             return item;
         }
