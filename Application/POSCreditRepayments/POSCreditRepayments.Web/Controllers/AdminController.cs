@@ -26,15 +26,6 @@ namespace POSCreditRepayments.Web.Controllers
         [HttpPost]
         public ActionResult ToggleFinancialInstitutionsStatus(string id)
         {
-            this.ChangeApprovalStatus(id);
-            IList<AllFinancialInstitutionsViewModel> institutions = this.GetFinancialInstitutions();
-
-            return this.PartialView("_AllFinancialInstitutionsPartial", institutions);
-        }
-
-        [NonAction]
-        private void ChangeApprovalStatus(string id)
-        {
             FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(id);
 
             if (institution != null)
@@ -42,6 +33,10 @@ namespace POSCreditRepayments.Web.Controllers
                 institution.IsApproved = institution.IsApproved == true ? false : true;
                 this.Data.SaveChanges();
             }
+
+            IList<AllFinancialInstitutionsViewModel> institutions = this.GetFinancialInstitutions();
+
+            return this.PartialView("_AllFinancialInstitutionsPartial", institutions);
         }
 
         [NonAction]

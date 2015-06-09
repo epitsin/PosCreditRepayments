@@ -8,9 +8,11 @@
 
         public virtual FinancialInstitution FinancialInstitution { get; set; }
 
-        public int FinancialInstitutionId { get; set; }
+        public string FinancialInstitutionId { get; set; }
 
-        public Insurance Insurance { get; set; }
+        public virtual Insurance Insurance { get; set; }
+
+        public virtual int InsuranceId { get; set; }
 
         public virtual Product Product { get; set; }
 
@@ -20,6 +22,6 @@
 
         public virtual User User { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

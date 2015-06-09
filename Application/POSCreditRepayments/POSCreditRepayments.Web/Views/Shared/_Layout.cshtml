@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title class="brand">POS Credits Repayment Calculator</title>    
+    <title class="brand">POS Credits Repayment Calculator</title>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryval")
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 </head>
@@ -28,7 +29,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Products", "AllProducts", "Products")</li>                    
+                    <li>@Html.ActionLink("Products", "AllProducts", "Products")</li>
                     @if (User.IsInRole(POSCreditRepayments.Common.GlobalConstants.AdminRole))
                     {
                         <li>@Html.ActionLink("Partners", "AllFinancialInstitutions", "Admin")</li>

@@ -14,15 +14,7 @@ namespace POSCreditRepayments.Web.Controllers
     [Authorize(Roles = "User, Admin")]
     public class CreditController : BaseController
     {
-        private readonly double highRate = 0.5;
-
-        private readonly double lowRate = 0.01;
-
-        private readonly double maxIteration = 100;
-
         private readonly IDropDownListPopulator populator;
-
-        private readonly double precisionRequirement = 0.00000001;
 
         public CreditController(IPOSCreditRepaymentsData data, IDropDownListPopulator populator)
             : base(data)
@@ -35,34 +27,39 @@ namespace POSCreditRepayments.Web.Controllers
             string institutionId = viewModel.SelectedFinancialInstitutions.FirstOrDefault();
             FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(institutionId);
 
-            decimal insurance = (decimal)institution.Insurances
-                .FirstOrDefault(x => x.Type == viewModel.InsuranceType)
-                .PercentageRate * viewModel.Product.Price;
-            decimal priceWithoutDownpayment = (viewModel.Product.Price + institution.ApplicationFee - viewModel.Downpayment);
+            Insurance insurance = institution.Insurances.FirstOrDefault(x => x.Type == viewModel.InsuranceType);
+            decimal insuranceAmountPerMonth = (decimal)insurance.PercentageRate * viewModel.Product.Price;
+
+            decimal creditAmount = viewModel.Product.Price +
+                                   institution.ApplicationFee +
+                                   insuranceAmountPerMonth * viewModel.Term -
+                                   viewModel.Downpayment;
+
             double interestRate = institution.FinancialInstitutionPurchaseProfiles
                                              .Where(x => x.PurchaseProfile.MonthsMin <= viewModel.Term &&
                                                          x.PurchaseProfile.MonthsMax >= viewModel.Term &&
-                                                         x.PurchaseProfile.PriceMin <= priceWithoutDownpayment &&
-                                                         x.PurchaseProfile.PriceMax >= priceWithoutDownpayment)
+                                                         x.PurchaseProfile.PriceMin <= creditAmount &&
+                                                         x.PurchaseProfile.PriceMax >= creditAmount)
                                              .FirstOrDefault()
                                              .InterestRate;
             double interestRatePerMonth = interestRate / 1200;
+            double interestRateForTerm = Math.Pow(1 + interestRatePerMonth, viewModel.Term);
 
-            double interestPayment = 1 - 1 / Math.Pow(1 + interestRatePerMonth, viewModel.Term);
-            decimal creditAmount = priceWithoutDownpayment + (insurance * viewModel.Term);
-            decimal monthlyPayment = ((decimal)interestRatePerMonth * priceWithoutDownpayment) / (decimal)interestPayment + insurance;
+            decimal monthlyPayment = ((decimal)interestRatePerMonth * creditAmount * (decimal)interestRateForTerm) / (decimal)(interestRateForTerm - 1);
             decimal totalAmount = monthlyPayment * viewModel.Term;
-
-            //int numOfFlows = viewModel.Term + 1;
-            //decimal[] cashFlows = new decimal[37];
-            //cashFlows[0] = creditAmount;
-            //for (int i = 1; i <= numOfFlows; i++)
-            //{
-            //    cashFlows[i] = -monthlyPayment;
-            //}
-
-           // double irr = this.ComputeIrr(cashFlows, numOfFlows);
             double apr = (Math.Pow(1 + interestRatePerMonth, 12) - 1) * 100;
+
+            this.Data.Credits.Add(new Credit
+            {
+                Product = viewModel.Product,
+                User = this.CurrentUser,
+                FinancialInstitution = institution,
+                Downpayment = viewModel.Downpayment,
+                Insurance = insurance,
+                Term = viewModel.Term
+            });
+
+            this.Data.SaveChanges();
 
             CreditDisplayTemplateViewModel model = new CreditDisplayTemplateViewModel
             {
@@ -76,11 +73,10 @@ namespace POSCreditRepayments.Web.Controllers
                 InterestAmount = Math.Round(totalAmount - creditAmount, 2),
                 Term = viewModel.Term,
                 MonthlyPayment = Math.Round(monthlyPayment, 2),
-             //   Irr = Math.Round(irr * 100, 2),
                 Apr = Math.Round(apr, 2),
                 ProductName = viewModel.Product.Name,
                 ProductPrice = viewModel.Product.Price,
-                InsuranceAmount = insurance
+                InsuranceAmount = insuranceAmountPerMonth
             };
 
             return this.View(model);
@@ -110,72 +106,5 @@ namespace POSCreditRepayments.Web.Controllers
 
             return this.View(model);
         }
-
-        //private double ComputeIrr(decimal[] cf, int numOfFlows)
-        //{
-        //    double oldNpv = 0;
-        //    double newNpv = 0;
-        //    double newGuessRate = this.lowRate;
-        //    double guessRate = this.lowRate;
-        //    double lowGuessRate = this.lowRate;
-        //    double highGuessRate = this.highRate;
-        //    double npv = 0;
-        //    double denom = 0;
-        //    for (int i = 0; i < this.maxIteration; i++)
-        //    {
-        //        npv = 0;
-        //        for (int j = 0; j < numOfFlows; j++)
-        //        {
-        //            denom = Math.Pow((1 + guessRate), j);
-        //            npv = npv + ((double)cf[j] / denom);
-        //        }
-
-        //        if ((npv > 0) && (npv < this.precisionRequirement))
-        //        {
-        //            break;
-        //        }
-
-        //        if (oldNpv == 0)
-        //        {
-        //            oldNpv = npv;
-        //        }
-        //        else
-        //        {
-        //            oldNpv = newNpv;
-        //        }
-
-        //        newNpv = npv;
-        //        if (i > 0)
-        //        {
-        //            if (oldNpv < newNpv)
-        //            {
-        //                if (oldNpv < 0 && newNpv < 0)
-        //                {
-        //                    highGuessRate = newGuessRate;
-        //                }
-        //                else
-        //                {
-        //                    lowGuessRate = newGuessRate;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                if (oldNpv > 0 && newNpv > 0)
-        //                {
-        //                    lowGuessRate = newGuessRate;
-        //                }
-        //                else
-        //                {
-        //                    highGuessRate = newGuessRate;
-        //                }
-        //            }
-        //        }
-
-        //        guessRate = (lowGuessRate + highGuessRate) / 2;
-        //        newGuessRate = guessRate;
-        //    }
-
-        //    return guessRate;
-        //}
     }
 }

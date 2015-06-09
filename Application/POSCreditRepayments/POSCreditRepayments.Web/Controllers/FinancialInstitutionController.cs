@@ -73,15 +73,22 @@ namespace POSCreditRepayments.Web.Controllers
 
                             if (purchaseProfile == null)
                             {
-                                purchaseProfile = new PurchaseProfile
+                                if (viewModel.PriceMin >= viewModel.PriceMax || viewModel.MonthsMin >= viewModel.MonthsMax)
                                 {
-                                    MonthsMin = viewModel.MonthsMin,
-                                    MonthsMax = viewModel.MonthsMax,
-                                    PriceMin = viewModel.PriceMin,
-                                    PriceMax = viewModel.PriceMax
-                                };
+                                    return this.RedirectToAction("Error", "Home");
+                                }
+                                else
+                                {
+                                    purchaseProfile = new PurchaseProfile
+                                    {
+                                        MonthsMin = viewModel.MonthsMin,
+                                        MonthsMax = viewModel.MonthsMax,
+                                        PriceMin = viewModel.PriceMin,
+                                        PriceMax = viewModel.PriceMax
+                                    };
 
-                                this.Data.PurchaseProfiles.Add(purchaseProfile);
+                                    this.Data.PurchaseProfiles.Add(purchaseProfile);
+                                }
                             }
 
                             financialInstitutionPurchaseProfile = new FinancialInstitutionPurchaseProfile
@@ -98,7 +105,7 @@ namespace POSCreditRepayments.Web.Controllers
 
                     this.Data.SaveChanges();
 
-                    return this.RedirectToAction("FinancialInstitutionProfile", "FinancialInstitution", model.Id);
+                    return this.RedirectToAction("FinancialInstitutionProfile", "FinancialInstitution", new { id = model.Id });
                 }
             }
 

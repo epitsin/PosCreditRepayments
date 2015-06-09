@@ -44,7 +44,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Email, new { @readonly = "readonly", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "text-danger col-md-offset-1" })
             </div>
         </div>
@@ -111,9 +111,9 @@
             {
                 <div class="col-md-3 control-label">
                     <label>
-                        Credit term: @Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin - @Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax months
+                        Credit term: @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) in months
                         <br />
-                        Price range: @Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin - @Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax
+                        Price range: @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" })
                     </label>
                 </div>
                 <div class="form-group">

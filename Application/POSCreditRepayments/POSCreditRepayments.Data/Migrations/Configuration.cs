@@ -82,7 +82,12 @@ namespace POSCreditRepayments.Data.Migrations
                 Name = "FiBank",
                 ApplicationFee = 15m,
                 UserName = "FiBank",
-                IsApproved = true
+                IsApproved = true,
+                Email = "fibank@fibank.com",
+                WebSite = "fibank.com",
+                Phone = "0700123456",
+                Fax = "021234567",
+                Address = "Bulgaria, Sofia, Mladost 1"
             };
 
             Insurance insurance1 = new Insurance
@@ -173,7 +178,12 @@ namespace POSCreditRepayments.Data.Migrations
                 Name = "UniCredit",
                 ApplicationFee = 20m,
                 UserName = "UniCredit",
-                IsApproved = true
+                IsApproved = true,
+                Email = "UniCredit@UniCredit.com",
+                WebSite = "UniCredit.com",
+                Phone = "0700123456",
+                Fax = "021234567",
+                Address = "Bulgaria, Sofia, Mladost 1"
             };
 
             Insurance insurance21 = new Insurance
@@ -264,7 +274,12 @@ namespace POSCreditRepayments.Data.Migrations
                 Name = "Allianz",
                 ApplicationFee = 25m,
                 UserName = "Allianz",
-                IsApproved = true
+                IsApproved = true,
+                Email = "Allianz@Allianz.com",
+                WebSite = "Allianz.com",
+                Phone = "0700123456",
+                Fax = "021234567",
+                Address = "Bulgaria, Sofia, Mladost 1"
             };
 
             Insurance insurance31 = new Insurance

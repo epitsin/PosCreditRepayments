@@ -10,13 +10,20 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
 {
     public class EditFinancialInstitutionProfileViewModel : IMapFrom<FinancialInstitution>, IHaveCustomMappings
     {
+        [StringLength(200)]
+        [Required]
         public string Address { get; set; }
 
         [Display(Name = "Credit intermediary")]
+        [StringLength(100)]
+        [Required]
         public string CreditIntermerdiary { get; set; }
 
+        [StringLength(50)]
+        [Required]
         public string Email { get; set; }
 
+        [StringLength(20)]
         public string Fax { get; set; }
 
         [HiddenInput(DisplayValue = false)]
@@ -25,12 +32,18 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
         [Display(Name = "Application fee")]
         public decimal ApplicationFee { get; set; }
 
+        [StringLength(100)]
+        [Required]
         public string Name { get; set; }
 
         [Display(Name = "Phone number")]
+        [StringLength(20)]
+        [Required]
         public string Phone { get; set; }
 
         [Display(Name = "Website")]
+        [StringLength(50)]
+        [Required]
         public string WebSite { get; set; }
 
         public List<Insurance> Insurances { get; set; }
