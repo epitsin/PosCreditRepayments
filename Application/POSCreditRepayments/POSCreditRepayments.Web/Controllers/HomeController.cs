@@ -29,5 +29,10 @@ namespace POSCreditRepayments.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult InputError()
+        {
+            return View();
+        }
     }
 }

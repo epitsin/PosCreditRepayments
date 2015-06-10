@@ -1,9 +1,13 @@
 ﻿@model POSCreditRepayments.Web.ViewModels.Credits.CreditDisplayTemplateViewModel
 
 <div class="row">
-    <div class="box">
-        <h2>Your calculated monthly payment is:</h2>
-
+    <div class="box text-center">
+        <h2>What will it take to pay off my credit?</h2>
+        <hr />
+        <p>At your current rate of spending, it will take payments of <strong>@Model.MonthlyPayment</strong> per month to pay off your credit loan in <strong>@Model.Term</strong> months.</p>
+        <p>If you were to pay off your loan immediately, you could avoid <strong>@Model.InterestAmount</strong> in interest costs.</p>
+        <p>Paying off your balance 2 months earlier will increase your monthly payment to <strong>@Model.EarlierPaymentIncreaseAmount</strong>, but it will save you <strong>@Model.EarlierPaymentIterestSavings</strong> in interest charges in the long run.</p>
+        <hr />
         @Html.DisplayForModel("CreditDisplayTemplateViewModel")
 
         @Html.ActionLink("Download PDF", "GeneratePdfEuroFormTemplate", Model, new { @class = "btn btn-lg btn-info" })

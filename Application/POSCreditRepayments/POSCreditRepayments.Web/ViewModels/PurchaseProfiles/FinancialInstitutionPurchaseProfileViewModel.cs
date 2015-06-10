@@ -23,7 +23,7 @@ namespace POSCreditRepayments.Web.ViewModels.PurchaseProfiles
         [Required]
         public decimal PriceMin { get; set; }
 
-        [Range(0.1, 50)]
+        [Range(0, 50)]
         [Required]
         public double InterestRate { get; set; }
 

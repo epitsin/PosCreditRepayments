@@ -75,7 +75,7 @@ namespace POSCreditRepayments.Web.Controllers
                             {
                                 if (viewModel.PriceMin >= viewModel.PriceMax || viewModel.MonthsMin >= viewModel.MonthsMax)
                                 {
-                                    return this.RedirectToAction("Error", "Home");
+                                    return this.RedirectToAction("InputError", "Home");
                                 }
                                 else
                                 {
@@ -100,7 +100,14 @@ namespace POSCreditRepayments.Web.Controllers
                             this.Data.FinancialInstitutionPurchaseProfiles.Add(financialInstitutionPurchaseProfile);
                         }
 
-                        financialInstitutionPurchaseProfile.InterestRate = viewModel.InterestRate;
+                        if (viewModel.InterestRate != 0)
+                        {
+                            financialInstitutionPurchaseProfile.InterestRate = viewModel.InterestRate;
+                        }
+                        else
+                        {
+                            this.Data.FinancialInstitutionPurchaseProfiles.Delete(financialInstitutionPurchaseProfile);
+                        }
                     }
 
                     this.Data.SaveChanges();
@@ -109,7 +116,7 @@ namespace POSCreditRepayments.Web.Controllers
                 }
             }
 
-            return this.RedirectToAction("Error", "Home");
+            return this.RedirectToAction("InputError", "Home");
         }
 
         [HttpGet]
@@ -131,7 +138,7 @@ namespace POSCreditRepayments.Web.Controllers
                 return this.View(institution);
             }
 
-            return this.RedirectToAction("Error", "Home");
+            return this.RedirectToAction("InputError", "Home");
         }
     }
 }

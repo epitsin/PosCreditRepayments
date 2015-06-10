@@ -351,6 +351,7 @@
     <Content Include="Views\Credit\EuroFormTemplate.cshtml" />
     <Content Include="Views\FinancialInstitution\FinancialInstitutionProfile.cshtml" />
     <Content Include="Views\FinancialInstitution\EditFinancialInstitutionProfile.cshtml" />
+    <Content Include="Views\Home\InputError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

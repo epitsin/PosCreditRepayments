@@ -63,66 +63,85 @@
             </div>
         </div>
         <hr />
-        <div class="row">
-            <h3 class="text-center">Interest rates</h3>
+        <div id="interest-rates">
+            <div class="row text-center">
+                <h3>Interest rates</h3>
+            </div>
+            @if (this.User.IsInRole("Admin"))
+            {
+                <div class="row text-center">
+                    <p>Please, be careful with setting consequent months and amounts! </p>
+                    <p>The month periods should cover all months through 3 - 36 and mustn't intersect.</p>
+                    <p>If there is a need to remove a certain profile, leave the interest rate 0. </p>
+                    <p>
+                        Have in mind that any mistakes will reflect the proper calculation of the credits that the financial institution offers.
+                    </p>
+                </div>
+            }
+            @for (int i = 0; i < Model.FinancialInstitutionPurchaseProfileViewModels.Count; i++)
+            {
+                if (this.User.IsInRole("Admin"))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                        </div>
+                    </div>
+                    <hr />
+                }
+                else
+                {
+                    <div class="col-md-3 control-label">
+                        <label>
+                            Credit term: @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) in months
+                            <br />
+                            Price range: @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" })
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, string.Empty, new { @class = "text-danger col-md-offset-1" })
+                        </div>
+                    </div>
+                }
+            }
         </div>
-        for (int i = 0; i < Model.FinancialInstitutionPurchaseProfileViewModels.Count; i++)
+        if (this.User.IsInRole("Admin"))
         {
-            if (this.User.IsInRole("Admin"))
-            {
-                <div class="form-group">
-                    @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, new { @class = "form-control", type = "number" })
-                        @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, string.Empty, new { @class = "text-danger col-md-offset-1" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, new { @class = "form-control", type = "number" })
-                        @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, string.Empty, new { @class = "text-danger col-md-offset-1" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, new { @class = "form-control", type = "number" })
-                        @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, string.Empty, new { @class = "text-danger col-md-offset-1" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, new { @class = "form-control", type = "number" })
-                        @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, string.Empty, new { @class = "text-danger col-md-offset-1" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, new { @class = "col-md-3 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, new { @class = "form-control", type = "number" })
-                        @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, string.Empty, new { @class = "text-danger col-md-offset-1" })
-                    </div>
-                </div>
-                <hr />
-            }
-            else
-            {
-                <div class="col-md-3 control-label">
-                    <label>
-                        Credit term: @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMin, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].MonthsMax, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) in months
-                        <br />
-                        Price range: @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMin, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" }) @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].PriceMax, new { @readonly = "readonly", @class = "form-control col-sm-1", type = "number" })
-                    </label>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, new { @class = "form-control", type = "number" })
-                        @Html.ValidationMessageFor(m => Model.FinancialInstitutionPurchaseProfileViewModels[i].InterestRate, string.Empty, new { @class = "text-danger col-md-offset-1" })
-                    </div>
-                </div>
-            }
+            <div class="container center-block">
+                <button id="add-purchase-profile" type="button" class="btn btn-info">Add purchase profile</button>
+            </div>
         }
 
         <div class="row">
@@ -153,3 +172,14 @@
         </div>
     }
 </div>
+
+<script>
+    $(document).ready(function () {
+        var $businessNameHolder = $('#add-purchase-profile');
+
+        $businessNameHolder.click(function () {
+            var $rates = $('#interest-rates');
+            $rates.append('<div class="form-group"><label class="col-md-3 control-label">MonthsMin</label><div class="col-md-8"><input class="form-control" type="number" /></div></div><div class="form-group"><label class="col-md-3 control-label">MonthsMax</label><div class="col-md-8"><input class="form-control" type="number" /></div></div><div class="form-group"><label class="col-md-3 control-label">PriceMin</label><div class="col-md-8"><input class="form-control" type="number" /></div></div><div class="form-group"><label class="col-md-3 control-label">PriceMax</label><div class="col-md-8"><input class="form-control" type="number" /></div></div><div class="form-group"><label class="col-md-3 control-label">InterestRate</label><div class="col-md-8"><input class="form-control" type="number" /></div></div><hr />')
+        });
+    });
+</script>

@@ -30,6 +30,8 @@ namespace POSCreditRepayments.Web.ViewModels.FinancialInstitutions
         public string Id { get; set; }
 
         [Display(Name = "Application fee")]
+        [Required]
+        [Range(0, 1000)]
         public decimal ApplicationFee { get; set; }
 
         [StringLength(100)]

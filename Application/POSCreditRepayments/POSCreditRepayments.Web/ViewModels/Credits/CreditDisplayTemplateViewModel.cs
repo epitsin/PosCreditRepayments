@@ -13,6 +13,10 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         [DisplayName("Down payment")]
         public decimal Downpayment { get; set; }
 
+        public decimal EarlierPaymentIncreaseAmount { get; set; }
+
+        public decimal EarlierPaymentIterestSavings { get; set; }
+
         [DisplayName("Finanial institution")]
         public string FinancialInstitutionName { get; set; }
 
