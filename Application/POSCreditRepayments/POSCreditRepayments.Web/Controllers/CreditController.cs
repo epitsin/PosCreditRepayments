@@ -24,83 +24,95 @@ namespace POSCreditRepayments.Web.Controllers
 
         public ActionResult Calculate(CreditEditorTemplateViewModel viewModel)
         {
-            string institutionId = viewModel.SelectedFinancialInstitutions.FirstOrDefault();
-            FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(institutionId);
-
-            Insurance insurance = institution.Insurances.FirstOrDefault(x => x.Type == viewModel.InsuranceType);
-            decimal insuranceAmountPerMonth = (decimal)insurance.PercentageRate * viewModel.Product.Price;
-            
-            decimal creditAmount = viewModel.Product.Price +
-                                   institution.ApplicationFee +
-                                   insuranceAmountPerMonth * viewModel.Term -
-                                   viewModel.Downpayment;
-
-            double interestRate = institution.FinancialInstitutionPurchaseProfiles
-                                             .Where(x => x.PurchaseProfile.MonthsMin <= viewModel.Term &&
-                                                         x.PurchaseProfile.MonthsMax >= viewModel.Term &&
-                                                         x.PurchaseProfile.PriceMin <= creditAmount &&
-                                                         x.PurchaseProfile.PriceMax >= creditAmount)
-                                             .FirstOrDefault()
-                                             .InterestRate;
-            double interestRatePerMonth = interestRate / 1200;
-            double interestRateForTerm = Math.Pow(1 + interestRatePerMonth, viewModel.Term);
-
-            decimal monthlyPayment = ((decimal)interestRatePerMonth * creditAmount * (decimal)interestRateForTerm) / (decimal)(interestRateForTerm - 1);
-            decimal totalAmount = monthlyPayment * viewModel.Term;
-            double apr = (Math.Pow(1 + interestRatePerMonth, 12) - 1) * 100;
-
-            this.Data.Credits.Add(new Credit
+            if (this.ModelState.IsValid)
             {
-                Product = viewModel.Product,
-                User = this.CurrentUser,
-                FinancialInstitution = institution,
-                Downpayment = viewModel.Downpayment,
-                Insurance = insurance,
-                Term = viewModel.Term
-            });
+                string institutionId = viewModel.SelectedFinancialInstitutions.FirstOrDefault();
+                FinancialInstitution institution = this.Data.FinancialInstitutions.GetById(institutionId);
 
-            this.Data.SaveChanges();
+                Insurance insurance = institution.Insurances.FirstOrDefault(x => x.Type == viewModel.InsuranceType);
+                decimal insuranceAmountPerMonth = (decimal)insurance.PercentageRate * viewModel.Product.Price;
 
-            CreditDisplayTemplateViewModel model = new CreditDisplayTemplateViewModel
-            {
-                CreditAmount = Math.Round(creditAmount, 2),
-                Downpayment = viewModel.Downpayment,
-                FinancialInstitutionName = institution.Name,
-                Insurance = viewModel.InsuranceType.ToString(),
-                InterestRatePerMonth = Math.Round(interestRate / 12, 2),
-                InterestRatePerYear = Math.Round(interestRate, 2),
-                TotalAmount = Math.Round(totalAmount, 2),
-                InterestAmount = Math.Round(totalAmount - creditAmount, 2),
-                Term = viewModel.Term,
-                MonthlyPayment = Math.Round(monthlyPayment, 2),
-                Apr = Math.Round(apr, 2),
-                ProductName = viewModel.Product.Name,
-                ProductPrice = viewModel.Product.Price,
-                InsuranceAmount = insuranceAmountPerMonth
-            };
+                if (viewModel.Downpayment >= viewModel.Product.Price)
+                {
+                    return this.RedirectToAction("InputError", "Home");
+                }
 
-            decimal creditAmountEarlierPayment = viewModel.Product.Price +
-                                 institution.ApplicationFee +
-                                 insuranceAmountPerMonth * (viewModel.Term - 2) -
-                                 viewModel.Downpayment;
+                decimal creditAmount = viewModel.Product.Price +
+                                       institution.ApplicationFee +
+                                       insuranceAmountPerMonth * viewModel.Term -
+                                       viewModel.Downpayment;
 
-            double interestRateEarlierPayment = institution.FinancialInstitutionPurchaseProfiles
-                                             .Where(x => x.PurchaseProfile.MonthsMin <= viewModel.Term - 2 &&
-                                                         x.PurchaseProfile.MonthsMax >= viewModel.Term - 2 &&
-                                                         x.PurchaseProfile.PriceMin <= creditAmountEarlierPayment &&
-                                                         x.PurchaseProfile.PriceMax >= creditAmountEarlierPayment)
-                                             .FirstOrDefault()
-                                             .InterestRate;
-            double interestRatePerMonthEarlierPayment = interestRateEarlierPayment / 1200;
-            double interestRateForTermEarlierPayment = Math.Pow(1 + interestRatePerMonthEarlierPayment, viewModel.Term - 2);
+                double interestRate = institution.FinancialInstitutionPurchaseProfiles
+                                                 .Where(x => x.PurchaseProfile.MonthsMin <= viewModel.Term &&
+                                                             x.PurchaseProfile.MonthsMax >= viewModel.Term &&
+                                                             x.PurchaseProfile.PriceMin <= creditAmount &&
+                                                             x.PurchaseProfile.PriceMax >= creditAmount)
+                                                 .FirstOrDefault()
+                                                 .InterestRate;
+                double interestRatePerMonth = interestRate / 1200;
+                double interestRateForTerm = Math.Pow(1 + interestRatePerMonth, viewModel.Term);
 
-            decimal monthlyPaymentEarlierPayment = ((decimal)interestRatePerMonthEarlierPayment * creditAmountEarlierPayment * (decimal)interestRateForTermEarlierPayment) / (decimal)(interestRateForTermEarlierPayment - 1);
-            decimal totalAmountEarlierPayment = monthlyPaymentEarlierPayment * (viewModel.Term - 2);
+                decimal monthlyPayment = ((decimal)interestRatePerMonth * creditAmount * (decimal)interestRateForTerm) / (decimal)(interestRateForTerm - 1);
+                decimal totalAmount = monthlyPayment * viewModel.Term;
+                double apr = (Math.Pow(1 + interestRatePerMonth, 12) - 1) * 100;
 
-            model.EarlierPaymentIncreaseAmount = Math.Round(monthlyPaymentEarlierPayment, 2);
-            model.EarlierPaymentIterestSavings = Math.Round((totalAmount - creditAmount) - (totalAmountEarlierPayment - creditAmountEarlierPayment), 2);
+                Product product = this.Data.Products.All().FirstOrDefault(x => x.Name == viewModel.Product.Name);
 
-            return this.View(model);
+                this.Data.Credits.Add(new Credit
+                {
+                    Product = product,
+                    User = this.CurrentUser,
+                    FinancialInstitution = institution,
+                    Downpayment = viewModel.Downpayment,
+                    Insurance = insurance,
+                    Term = viewModel.Term
+                });
+
+                this.Data.SaveChanges();
+
+                CreditDisplayTemplateViewModel model = new CreditDisplayTemplateViewModel
+                {
+                    CreditAmount = Math.Round(creditAmount, 2),
+                    Downpayment = viewModel.Downpayment,
+                    FinancialInstitutionName = institution.Name,
+                    Insurance = viewModel.InsuranceType.ToString(),
+                    InterestRatePerMonth = Math.Round(interestRate / 12, 2),
+                    InterestRatePerYear = Math.Round(interestRate, 2),
+                    TotalAmount = Math.Round(totalAmount, 2),
+                    InterestAmount = Math.Round(totalAmount - creditAmount, 2),
+                    Term = viewModel.Term,
+                    MonthlyPayment = Math.Round(monthlyPayment, 2),
+                    Apr = Math.Round(apr, 2),
+                    ProductName = viewModel.Product.Name,
+                    ProductPrice = viewModel.Product.Price,
+                    InsuranceAmount = Math.Round(insuranceAmountPerMonth, 2)
+                };
+
+                decimal creditAmountEarlierPayment = viewModel.Product.Price +
+                                     institution.ApplicationFee +
+                                     insuranceAmountPerMonth * (viewModel.Term - 2) -
+                                     viewModel.Downpayment;
+
+                double interestRateEarlierPayment = institution.FinancialInstitutionPurchaseProfiles
+                                                 .Where(x => x.PurchaseProfile.MonthsMin <= viewModel.Term - 2 &&
+                                                             x.PurchaseProfile.MonthsMax >= viewModel.Term - 2 &&
+                                                             x.PurchaseProfile.PriceMin <= creditAmountEarlierPayment &&
+                                                             x.PurchaseProfile.PriceMax >= creditAmountEarlierPayment)
+                                                 .FirstOrDefault()
+                                                 .InterestRate;
+                double interestRatePerMonthEarlierPayment = interestRateEarlierPayment / 1200;
+                double interestRateForTermEarlierPayment = Math.Pow(1 + interestRatePerMonthEarlierPayment, viewModel.Term - 2);
+
+                decimal monthlyPaymentEarlierPayment = ((decimal)interestRatePerMonthEarlierPayment * creditAmountEarlierPayment * (decimal)interestRateForTermEarlierPayment) / (decimal)(interestRateForTermEarlierPayment - 1);
+                decimal totalAmountEarlierPayment = monthlyPaymentEarlierPayment * (viewModel.Term - 2);
+
+                model.EarlierPaymentIncreaseAmount = Math.Round(monthlyPaymentEarlierPayment, 2);
+                model.EarlierPaymentIterestSavings = Math.Round((totalAmount - creditAmount) - (totalAmountEarlierPayment - creditAmountEarlierPayment), 2);
+
+                return this.View(model);
+            }
+
+            return this.RedirectToAction("InputError", "Home");
         }
 
         public ActionResult GeneratePdfEuroFormTemplate(CreditDisplayTemplateViewModel model)

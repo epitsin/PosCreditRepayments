@@ -13,7 +13,6 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
         public decimal Downpayment { get; set; }
 
         [DisplayName("Finanial institution")]
-        [Required]
         public IEnumerable<SelectListItem> FinancialInstitutions { get; set; }
 
         [DisplayName("Product insurance")]
@@ -21,7 +20,6 @@ namespace POSCreditRepayments.Web.ViewModels.Credits
 
         public Product Product { get; set; }
 
-        [Required]
         public IEnumerable<string> SelectedFinancialInstitutions { get; set; }
 
         [DisplayName("Credit term (months)")]
